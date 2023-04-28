@@ -181,7 +181,7 @@ iframe {
 
 .txt3 {
     font-family: Raleway-Regular;
-    font-size: 13px;
+    font-size: 15px;
     color: #555;
     line-height: 1.4
 }
@@ -327,14 +327,16 @@ iframe {
 }
 
 .label-checkbox100 {
+    /* float: right; */
+
     font-family: Raleway-Regular;
-    font-size: 13px;
-    color: #999;
+    font-size: 15px;
+    /* color: #999;
     line-height: 1.4;
     display: block;
     position: relative;
     padding-left: 26px;
-    cursor: pointer
+    cursor: pointer  */
 }
 
 /* .label-checkbox100::before {

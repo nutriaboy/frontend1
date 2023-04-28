@@ -79,12 +79,12 @@ export const Login = () => {
                                 
                                 <span className="focus-input100"></span>
                             </div>
-                            <div className="flex-sb-m w-full p-b-48">
+                            <div className="form-check flex-sb-m w-full p-b-48">
                                 <div className="contact100-form-checkbox"
                                      onClick={ onClick }
                                 >
 
-                                    <input className="input-checkbox100"
+                                    <input className="form-check-input"
                                            type="checkbox"
                                            name="rememberme"
                                            id="ckb1"
@@ -93,10 +93,7 @@ export const Login = () => {
                                     />
 
                                     
-                                     
-      
-
-                                    <label className="label-checkbox100" >
+                                    <label className="form-check-label label-checkbox100" >
                                         Remember me
                                     </label>
                                 </div>
