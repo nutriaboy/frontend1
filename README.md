@@ -9,5 +9,5 @@
 
 > Para inicializar el proyecto ejecute: 
 ```
-yard dev
+yarn dev
 ```

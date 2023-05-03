@@ -1,15 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-import { App } from './App'
+import { CervezaApp } from './CervezaApp'
 
-import './css/style.css'
-import './css/util.css'
 
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <CervezaApp />
   </React.StrictMode>,
 )
