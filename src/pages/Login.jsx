@@ -1,21 +1,23 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from '../hooks/useForm';
 import Swal from 'sweetalert2';
-import { fetchSinToken } from '../helpers/fetch';
+import { AuthContext } from '../context/AuthContext';
 
 
 export const Login = () => {
+
+    const { login } = useContext(AuthContext);
 
     const [valuesInput, handleInputChange] = useForm({
         correo: '',
         password: '',
     })
-
     const { correo, password } = valuesInput;
 
     const [form, setForm] = useState({
         rememberme: true
     })
+
 
     const onClick = () => {
         setForm({
@@ -27,23 +29,15 @@ export const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        // console.log(valuesInput);
-
-        //FIXME: borrar fetchSinToken y poner en el Context correspondiente 
-        console.log({ correo, password });
-        const resp = await fetchSinToken( 'auth/login', { correo, password }, 'POST' )
-
-        console.log(resp)
-        const msg = `${resp}.`
-        Swal.fire('Error', msg, 'error')
+        const [ok, msg] = await login(correo, password);
+        if (!ok) {
+            Swal.fire('Error', msg, 'error')
+        }
     }
 
     const todoOk = () => {
-        return ( correo.length > 1 && password.length > 1) ? true : false;
+        return (correo.length > 1 && password.length > 1) ? true : false;
     }
-
-
-
 
 
     return (
@@ -66,7 +60,7 @@ export const Login = () => {
                             <div className="wrap-input100 validate-input m-b-36" data-validate="Username is required">
 
                                 <input className="input100"
-                                    type="text"
+                                    type="email"
                                     name="correo"
                                     placeholder="Email"
                                     value={correo}
@@ -119,7 +113,7 @@ export const Login = () => {
                             </div>
                             <div className="container-login100-form-btn">
 
-                                <button 
+                                <button
                                     className="btn btn-dark btn-lg"
                                     type='submit'
                                     disabled={!todoOk()}

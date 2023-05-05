@@ -1,20 +1,31 @@
-import React from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { Login } from '../pages/Login'
+import { PrivateRouter } from "./PrivateRouter"
+import { AdminRouter } from "./AdminRouter"
+import { PublicRouter } from "./PublicRouter"
+import { AuthRouter } from "./AuthRouter"
 
 
 export const AppRouter = () => {
-
-    const Loading = () => {
-        return (<h1>Loading ...</h1>)
-    
-      }
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/loading" element={<Loading />} />
+        <Route 
+          path="/*"
+          element={
+             <PrivateRouter >
+              <AdminRouter />
+            </PrivateRouter> 
+          } />
+
+        <Route
+          path="/auth/*"
+          element={
+            <PublicRouter >
+              <AuthRouter />
+            </PublicRouter>
+          } />
+
+
       </Routes>
     </BrowserRouter>
   )
