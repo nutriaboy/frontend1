@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom"
-import { useForm } from "../hooks/useForm"
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom'
+import { UsuarioContext } from '../context/UsuarioContext';
+import { useForm } from '../hooks/useForm'
+import Swal from 'sweetalert2';
+
 
 
 export const Register = () => {
+
+    const {register} = useContext(UsuarioContext);
 
     const [valuesInput, handleInputChange] = useForm({
         nombre: '',
@@ -13,26 +19,23 @@ export const Register = () => {
         direccion: '',
         genero: ''
     })
-    const {
-        nombre,
-        apellido,
-        correo,
-        password,
-        telefono,
-        direccion,
-        genero
-    } = valuesInput;
+    const { nombre, apellido, correo, password, telefono, direccion, genero } = valuesInput;
+
+    const navigate = useNavigate();
 
 
-    const handleRegister = (e) => {
+    const handleRegister = async(e) => {
         e.preventDefault();
-        console.log(nombre,
-            apellido,
-            correo,
-            password,
-            telefono,
-            direccion,
-            genero);
+        const [msg, ok] = await register(nombre, apellido, correo, password, telefono, direccion, genero);
+        if (!ok){
+            Swal.fire('Error', msg, 'error');
+        } else {
+            Swal.fire('Registrado', msg, 'success');
+            navigate('/auth/login', {
+                replace: true
+            });
+        }
+
     }
 
 
