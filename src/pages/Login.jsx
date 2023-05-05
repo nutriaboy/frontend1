@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from '../hooks/useForm';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 
 export const Login = () => {
@@ -15,9 +16,8 @@ export const Login = () => {
     const { correo, password } = valuesInput;
 
     const [form, setForm] = useState({
-        rememberme: true
+        rememberme: false
     })
-
 
     const onClick = () => {
         setForm({
@@ -42,9 +42,6 @@ export const Login = () => {
 
     return (
         <>
-            <div className="limiter">
-                <div className="container-login100">
-                    <div className="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
 
                         <form
                             className="login100-form validate-form flex-sb flex-w"
@@ -88,27 +85,28 @@ export const Login = () => {
                                 <span className="focus-input100"></span>
                             </div>
                             <div className="form-check flex-sb-m w-full p-b-48">
-                                <div className="contact100-form-checkbox"
-                                    onClick={onClick}
+                                {/* TODO: Proximamente activar */}
+                                 <div className="contact100-form-checkbox"
+                                    // onClick={onClick}
                                 >
-
+{/* 
                                     <input className="form-check-input"
                                         type="checkbox"
                                         name="rememberme"
                                         id="ckb1"
                                         checked={form.rememberme}
                                         readOnly
-                                    />
-
-
-                                    <label className="form-check-label label-checkbox100" >
+                                    /> */}
+                                    {/* <label className="form-check-label label-checkbox100" >
                                         Recordarme
-                                    </label>
-                                </div>
+                                    </label> */}
+
+
+                                </div> 
                                 <div>
-                                    <a href="#" className="txt3">
-                                        ¿Olvidó su contraseña?
-                                    </a>
+                                    <Link to="/auth/register" href="#" className="txt3">
+                                        Regístrate
+                                    </Link>
                                 </div>
                             </div>
                             <div className="container-login100-form-btn">
@@ -122,9 +120,6 @@ export const Login = () => {
                                 </button>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
             {/* <div id="dropDownSelect1"></div> */}
 
         </>
