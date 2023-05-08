@@ -12,6 +12,8 @@ const initialState = {
     usuarios: [],
     usuario: {},
     proveedor: [],
+    selectProveedor: {},
+    isOk: false,
     modalOpen: false
 }
 
@@ -53,6 +55,17 @@ export const UsuarioProvider = ({ children }) => {
         }
     }
 
+    const seleccionarProveedor = ({...data}) => {
+        dispatch({
+            type: types.seleccionarProveedor,
+            payload: data
+        })
+    }
+
+    const limpiarSeleccionProveedor = () => {
+        dispatch({ type: types.limpiarSeleccionProveedor})
+    }
+
     const uiOpenModal = () => {
         dispatch({type: types.uiOpenModal});
     } 
@@ -66,8 +79,10 @@ export const UsuarioProvider = ({ children }) => {
             state,
             register,
             obtenerProveedor,
+            seleccionarProveedor,
             uiOpenModal,
             uiCloseModal,
+            limpiarSeleccionProveedor,
         }}>
             { children }
         </UsuarioContext.Provider>

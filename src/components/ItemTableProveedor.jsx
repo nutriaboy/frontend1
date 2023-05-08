@@ -1,11 +1,18 @@
+import { useContext } from 'react';
+import { UsuarioContext } from '../context/UsuarioContext';
 
 export const ItemTableProveedor = (...data) => {
+
+    const {seleccionarProveedor, uiOpenModal} = useContext(UsuarioContext);
     const [proveedor] = data;
+    
 
     const editarProveedor = (e) => {
         e.preventDefault();
-        console.log(proveedor.uid)
+        seleccionarProveedor(proveedor);
+        uiOpenModal();
     }
+        
     const eliminarProveedor = (e) => {
         e.preventDefault();
         console.log('eliminar')

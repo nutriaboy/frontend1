@@ -17,6 +17,20 @@ export const usuarioReducer = (state, action) => {
                 isLoading: false
             }
 
+        case types.seleccionarProveedor:
+            return {
+                ...state,
+                selectProveedor: action.payload,
+                isOk: true
+            }
+
+        case types.limpiarSeleccionProveedor:
+            return { 
+                ...state,
+                selectProveedor: {},
+                isOk: false
+            }
+
         case types.uiOpenModal:
             return {
                 ...state,
