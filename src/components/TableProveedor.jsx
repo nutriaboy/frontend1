@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UsuarioContext } from '../context/UsuarioContext'
 import { ItemTableProveedor } from './ItemTableProveedor';
 import { ModalProveedor } from './ModalProveedor';
@@ -6,12 +6,39 @@ import { ModalProveedor } from './ModalProveedor';
 export const TableProveedor = () => {
 
     const { state, uiOpenModal } = useContext(UsuarioContext);
-    const { proveedor } = state;
+    const { proveedor, totalProveedor } = state;
+
+    const [paginacion, setPaginacion] = useState({
+        paginasTotales: 0,
+        paginaActual: 1
+    });
+    // const {paginasTotales, paginaActual} = paginacion;
+
+    useEffect(() => {
+        calcularPaginasTotales()
+    }, [])
+    
+    
+    const calcularPaginasTotales = () => {
+        const valor = Math.ceil(totalProveedor / 5);
+        setPaginacion({
+            ...paginacion,
+            paginasTotales: valor
+        });
+    }
+    
+    const validarSiguientePagina = () => {
+        console.log('siguiente');
+    }
+    
+    const validarVolverPagina = () => {
+        console.log('atras');
+    }
 
     const openModal = () => {
         uiOpenModal();
     }
-
+    
     return (
         <div className="container-xxl">
             <ModalProveedor />
@@ -61,6 +88,23 @@ export const TableProveedor = () => {
 
                 </tbody>
             </table>
+            <div className='d-grid gap-2 d-md-flex justify-content-md-center '>
+                <button 
+                    className='btn btn-dark'
+                    onClick={validarVolverPagina}
+                    // disabled
+                >
+                    ←
+                </button>
+                <button 
+                    className='btn btn-dark'
+                    onClick={validarSiguientePagina}
+                    // disabled
+                >
+                    →
+                </button>
+
+            </div>
         </div>
     )
 }

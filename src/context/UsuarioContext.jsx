@@ -12,6 +12,7 @@ const initialState = {
     usuarios: [],
     usuario: {},
     proveedor: [],
+    totalProveedor: 0,
     selectProveedor: {},
     isOk: false,
     modalOpen: false
@@ -43,16 +44,38 @@ export const UsuarioProvider = ({ children }) => {
 
     }
 
-    const obtenerProveedor = async() => {
-        const resp = await fetchConToken('proveedores');
+    const obtenerProveedor = async(desde = 0) => {
+        console.log(desde);
+        const resp = await fetchConToken(`proveedores?desde=${desde}`);
+        
 
         if (resp.ok){
-            const { proveedores } = resp;
+            const { proveedores, total } = resp;
             dispatch({
                 type: types.obtenerProveedores,
-                payload: proveedores
+                payload: [proveedores, total]
             })
         }
+    }
+
+  
+
+    //FIXME: Terminar los mensajes de alerta!
+    const crearProveedor = async(...data) => {
+        const [nuevoProveedor] = data
+        const {nombre, correo, telefono, direccion} = nuevoProveedor
+        const resp = await fetchConToken('proveedores', {nombre, correo, telefono, direccion}, 'POST');
+        if (resp.ok) {
+            obtenerProveedor();
+            return true
+        }
+        if (!resp.ok && !resp.msg){
+            const {msg} = resp.errors[0]
+            return [msg]
+        }
+        const {msg} = resp
+        return [msg]
+        
     }
 
     const seleccionarProveedor = ({...data}) => {
@@ -79,6 +102,7 @@ export const UsuarioProvider = ({ children }) => {
             state,
             register,
             obtenerProveedor,
+            crearProveedor,
             seleccionarProveedor,
             uiOpenModal,
             uiCloseModal,

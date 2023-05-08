@@ -7,7 +7,7 @@ import { UsuarioContext } from '../context/UsuarioContext';
 
 export const ModalProveedor = () => {
 
-    const { state, uiCloseModal, limpiarSeleccionProveedor } = useContext(UsuarioContext);
+    const { state, uiCloseModal, limpiarSeleccionProveedor, crearProveedor } = useContext(UsuarioContext);
     const { modalOpen, selectProveedor, isOk } = state;
 
     const [dataProveedor, setDataProveedor] = useState({});
@@ -42,9 +42,13 @@ export const ModalProveedor = () => {
 
     const handleSave = (e) => {
         e.preventDefault();
-        // limpiarSeleccionProveedor()
-
+        crearProveedor({ nombre, correo, telefono, direccion });
+        uiCloseModal();
+        setTimeout(() => {
+            limpiarSeleccionProveedor()
+        }, 210);
     }
+    
     const closeModal = () => {
         setTimeout(() => {
             limpiarSeleccionProveedor();
@@ -69,8 +73,8 @@ export const ModalProveedor = () => {
         >
             {
                 (!isOk)
-                    ? (<h1>Crear Proveedor</h1>)
-                    : (<h1>Editar Proveedor</h1>)
+                    ? (<h2>Registrar Nuevo Proveedor</h2>)
+                    : (<h2>Editar Proveedor</h2>)
             }
 
             <hr />

@@ -13,7 +13,8 @@ export const usuarioReducer = (state, action) => {
         case types.obtenerProveedores:
             return {
                 ...state,
-                proveedor: action.payload,
+                proveedor: action.payload[0],
+                totalProveedor: action.payload[1],
                 isLoading: false
             }
 
@@ -25,7 +26,7 @@ export const usuarioReducer = (state, action) => {
             }
 
         case types.limpiarSeleccionProveedor:
-            return { 
+            return {
                 ...state,
                 selectProveedor: {},
                 isOk: false
