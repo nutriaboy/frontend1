@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react';
-import { fetchSinToken } from '../helpers/fetch';
+import { fetchConToken, fetchSinToken } from '../helpers/fetch';
 import { usuarioReducer } from '../reducers/usuarioReducer';
 import { types } from '../types/types';
 
@@ -11,6 +11,7 @@ const initialState = {
     isLoading: true,
     usuarios: [],
     usuario: {},
+    proveedor: [],
     modalOpen: false
 }
 
@@ -40,11 +41,33 @@ export const UsuarioProvider = ({ children }) => {
 
     }
 
+    const obtenerProveedor = async() => {
+        const resp = await fetchConToken('proveedores');
+
+        if (resp.ok){
+            const { proveedores } = resp;
+            dispatch({
+                type: types.obtenerProveedores,
+                payload: proveedores
+            })
+        }
+    }
+
+    const uiOpenModal = () => {
+        dispatch({type: types.uiOpenModal});
+    } 
+    const uiCloseModal = () => {
+        dispatch({type: types.uiCloseModal});
+    } 
+
 
     return (
         <UsuarioContext.Provider value={{
             state,
-            register
+            register,
+            obtenerProveedor,
+            uiOpenModal,
+            uiCloseModal,
         }}>
             { children }
         </UsuarioContext.Provider>

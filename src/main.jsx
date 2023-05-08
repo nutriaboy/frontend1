@@ -7,7 +7,7 @@ import { CervezaApp } from './CervezaApp'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <CervezaApp />
-  </React.StrictMode>,
+  /* </React.StrictMode>, */
 )

@@ -1,31 +1,31 @@
-import { useContext } from "react"
-import { AuthContext } from "../context/AuthContext"
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from 'react'
+import { TableProveedor } from '../components/TableProveedor'
+import { UsuarioContext } from '../context/UsuarioContext'
 
 export const Admin = () => {
-    const navigate = useNavigate();
-    const {logout} = useContext(AuthContext);
 
-    const handleLogout = () => {
-        logout();
-        localStorage.removeItem('token');
-        navigate('/auth', {
-            replace: true
-        });
-    }
+    const {obtenerProveedor, state} = useContext(UsuarioContext);
+    const { isLoading } = state;
+
+    useEffect(() => {
+      
+        obtenerProveedor()
+     
+    }, [])
+    
+    
 
     return (
         <div>
-            <h1>Admin</h1>
+            <h1 className="text-center">Admin</h1>
             <br/>
-
-            <button
-                className="btn btn-dark btn-lg"
-                type='submit'
-                onClick={handleLogout}
-            >
-                Cerrar Sesión
-            </button>
+            {
+                (isLoading)
+                    ? (<h2 className='container'>Cargando...</h2>)
+                    : <TableProveedor />
+            }
+            
+            
         </div>
     )
 }
