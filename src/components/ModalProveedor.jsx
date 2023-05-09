@@ -7,11 +7,11 @@ import { UsuarioContext } from '../context/UsuarioContext';
 
 export const ModalProveedor = () => {
 
-    const { state, uiCloseModal, limpiarSeleccionProveedor, crearProveedor } = useContext(UsuarioContext);
+    const { state, uiCloseModal, limpiarSeleccionProveedor, crearProveedor, actualizarProveedor } = useContext(UsuarioContext);
     const { modalOpen, selectProveedor, isOk } = state;
 
     const [dataProveedor, setDataProveedor] = useState({});
-    const { nombre = '', correo = '', telefono = '', direccion = '' } = dataProveedor;
+    const { nombre = '', correo = '', telefono = '', direccion = '', uid } = dataProveedor;
 
     useEffect(() => {
         if (selectProveedor) {
@@ -40,6 +40,12 @@ export const ModalProveedor = () => {
         })
     }
 
+    const handleSaveUpdate = (e) => {
+        e.preventDefault();
+        actualizarProveedor({ nombre, correo, telefono, direccion, uid });
+        closeModal();
+    }
+
     const handleSave = (e) => {
         e.preventDefault();
         crearProveedor({ nombre, correo, telefono, direccion });
@@ -48,7 +54,7 @@ export const ModalProveedor = () => {
             limpiarSeleccionProveedor()
         }, 210);
     }
-    
+
     const closeModal = () => {
         setTimeout(() => {
             limpiarSeleccionProveedor();
@@ -129,14 +135,30 @@ export const ModalProveedor = () => {
 
 
                 <div className="d-grid gap-2">
-                    <button
-                        type='submit'
-                        onClick={handleSave}
-                        className='btn btn-block btn-outline-info mt-4'
-                        disabled={!todoOk()}
-                    >
-                        Guardar
-                    </button>
+                    {
+                        (!isOk)
+                            ? (
+                                <button
+                                    type='submit'
+                                    onClick={handleSave}
+                                    className='btn btn-block btn-outline-info mt-4'
+                                    disabled={!todoOk()}
+                                >
+                                    Guardar
+                                </button>
+
+                            )
+                            : (
+                                <button
+                                    type='submit'
+                                    onClick={handleSaveUpdate}
+                                    className='btn btn-block btn-outline-info mt-4'
+                                    disabled={!todoOk()}
+                                >
+                                    Guardar Cambios
+                                </button>
+                            )
+                    }
 
                     <button
                         type='button'

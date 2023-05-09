@@ -45,7 +45,6 @@ export const UsuarioProvider = ({ children }) => {
     }
 
     const obtenerProveedor = async(desde = 0) => {
-        console.log(desde);
         const resp = await fetchConToken(`proveedores?desde=${desde}`);
         
 
@@ -58,6 +57,21 @@ export const UsuarioProvider = ({ children }) => {
         }
     }
 
+    const actualizarProveedor = async(...data) => {
+        const [dataProveedor] = data
+        const {nombre, correo , telefono, direccion, uid} = dataProveedor;
+        console.log(nombre ,correo, telefono, direccion);
+        const resp = await fetchConToken(`proveedores/${uid}`, {nombre, correo , telefono, direccion}, 'PUT');
+        console.log(resp);
+        if (resp.ok) {
+            const {proveedor} = resp;
+            dispatch({
+                type: types.actualizarProveedor,
+                payload: proveedor
+            })
+        }
+
+    }
   
 
     //FIXME: Terminar los mensajes de alerta!
@@ -102,6 +116,7 @@ export const UsuarioProvider = ({ children }) => {
             state,
             register,
             obtenerProveedor,
+            actualizarProveedor,
             crearProveedor,
             seleccionarProveedor,
             uiOpenModal,

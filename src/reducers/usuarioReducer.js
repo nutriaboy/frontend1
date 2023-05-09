@@ -18,6 +18,16 @@ export const usuarioReducer = (state, action) => {
                 isLoading: false
             }
 
+        case types.actualizarProveedor: 
+        return {
+            ...state,
+            proveedor: state.proveedor.map(
+                e => ( e.uid === action.payload.uid)
+                            ? action.payload
+                            : e
+            )
+        }
+
         case types.seleccionarProveedor:
             return {
                 ...state,
