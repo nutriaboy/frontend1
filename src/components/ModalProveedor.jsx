@@ -33,7 +33,6 @@ export const ModalProveedor = () => {
     }, [selectProveedor])
 
 
-
     const customStyles = {
         content: {
             top: '50%',
@@ -70,9 +69,15 @@ export const ModalProveedor = () => {
           })
     }
 
-    const handleSave = (e) => {
+    const handleSave = async(e) => {
         e.preventDefault();
-        crearProveedor({ nombre, correo, telefono, direccion });
+        const [msg] = await crearProveedor({ nombre, correo, telefono, direccion });
+
+        if (msg) {
+            Swal.fire('Error', msg, 'error');
+            return true;
+        }
+
         uiCloseModal();
         setTimeout(() => {
             limpiarSeleccionProveedor()
