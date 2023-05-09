@@ -28,6 +28,18 @@ export const usuarioReducer = (state, action) => {
             )
         }
 
+        case types.eliminarProveedor: 
+        return {
+            ...state,
+            proveedor: state.proveedor.filter(
+                e => ( e.uid === action.payload.uid)
+                            ? false
+                            : true
+            )
+        }
+
+        
+
         case types.seleccionarProveedor:
             return {
                 ...state,

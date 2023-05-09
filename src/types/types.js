@@ -3,6 +3,7 @@ export const types = {
 
     obtenerProveedores: '[Proveedor] Se obtiene los datos de los Proveedores',
     actualizarProveedor: '[Proveedor] Se actualiza un Proveedor',
+    eliminarProveedor: '[Proveedor] Se elimina un Proveedor',
     seleccionarProveedor: '[Proveedor] Se selecciona un Proveedor para su edicion',
     limpiarSeleccionProveedor: '[Proveedor] Se elimina la seleccion del Proveedor',
     

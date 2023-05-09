@@ -17,7 +17,7 @@ export const Admin = () => {
 
     return (
         <div>
-            <h1 className="text-center">Admin</h1>
+            <h1 className="text-center mt-5">Administrar Proveedores</h1>
             <br/>
             {
                 (isLoading)

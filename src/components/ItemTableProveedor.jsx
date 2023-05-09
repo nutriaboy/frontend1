@@ -1,9 +1,21 @@
 import { useContext } from 'react';
 import { UsuarioContext } from '../context/UsuarioContext';
+import Swal from 'sweetalert2';
+
+const deleteAlert = {
+    title: 'Eliminar Proveedor',
+    iconColor:'#FF0000',
+    text: "¿Desea eliminar este Proveedor?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#dc3545',
+    cancelButtonColor: '#5C5B5B',
+    confirmButtonText: 'Si, Eliminar!'
+  }
 
 export const ItemTableProveedor = (...data) => {
 
-    const {seleccionarProveedor, uiOpenModal} = useContext(UsuarioContext);
+    const {seleccionarProveedor, uiOpenModal, eliminarProveedor} = useContext(UsuarioContext);
     const [proveedor] = data;
     
 
@@ -13,9 +25,23 @@ export const ItemTableProveedor = (...data) => {
         uiOpenModal();
     }
         
-    const eliminarProveedor = (e) => {
+    const eliminarProveedorSeleccionado = (e) => {
         e.preventDefault();
-        console.log('eliminar')
+        const {uid} = proveedor; 
+
+        Swal.fire(deleteAlert).then((result) => {
+            if (result.isConfirmed) {
+                
+                eliminarProveedor(uid)
+    
+              Swal.fire(
+                  'Guardado!',
+                  'El Proveedor ha sido eliminado.',
+                  'success'
+              )
+            }
+          })
+
     }
 
     return (
@@ -29,7 +55,7 @@ export const ItemTableProveedor = (...data) => {
                 <button className='btn btn-info' onClick={editarProveedor}>Editar</button>
             </td>
             <td>
-                <button className='btn btn-danger' onClick={eliminarProveedor}>Borrar</button>
+                <button className='btn btn-danger' onClick={eliminarProveedorSeleccionado}>Borrar</button>
             </td>
             
         </tr>

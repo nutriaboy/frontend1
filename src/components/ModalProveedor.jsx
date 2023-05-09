@@ -3,6 +3,19 @@ import Modal from 'react-modal/lib/components/Modal';
 import '../css/modal.css';
 import { useContext, useEffect, useState } from 'react';
 import { UsuarioContext } from '../context/UsuarioContext';
+import Swal from 'sweetalert2';
+
+
+const warningAlert = {
+    title: 'Actualizar Proveedor',
+    iconColor:'#F99020',
+    text: "¿Seguro que quieres Actualizar los Datos?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#207CF9',
+    cancelButtonColor: '#5C5B5B',
+    confirmButtonText: 'Si, Actualizar!'
+  }
 
 
 export const ModalProveedor = () => {
@@ -42,8 +55,19 @@ export const ModalProveedor = () => {
 
     const handleSaveUpdate = (e) => {
         e.preventDefault();
-        actualizarProveedor({ nombre, correo, telefono, direccion, uid });
-        closeModal();
+
+        Swal.fire(warningAlert).then((result) => {
+            if (result.isConfirmed) {
+                actualizarProveedor({ nombre, correo, telefono, direccion, uid });
+                closeModal();
+    
+              Swal.fire(
+                  'Guardado!',
+                  'Datos Actualizados...',
+                  'success'
+              )
+            }
+          })
     }
 
     const handleSave = (e) => {
