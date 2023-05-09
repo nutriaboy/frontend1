@@ -5,34 +5,62 @@ import { ModalProveedor } from './ModalProveedor';
 
 export const TableProveedor = () => {
 
-    const { state, uiOpenModal } = useContext(UsuarioContext);
+    const { state, uiOpenModal, obtenerProveedor } = useContext(UsuarioContext);
     const { proveedor, totalProveedor } = state;
 
     const [paginacion, setPaginacion] = useState({
-        paginasTotales: 0,
-        paginaActual: 1
+        paginas: 1,
+        desdeProveedor: 0,
     });
-    // const {paginasTotales, paginaActual} = paginacion;
 
     useEffect(() => {
-        calcularPaginasTotales()
-    }, [])
-    
-    
-    const calcularPaginasTotales = () => {
+        if (paginacion.desdeProveedor < totalProveedor ) {
+            obtenerProveedor(paginacion.desdeProveedor);
+        }
+    }, [paginacion])
+
+    const PaginasTotales = () => {
         const valor = Math.ceil(totalProveedor / 5);
-        setPaginacion({
-            ...paginacion,
-            paginasTotales: valor
-        });
+        return valor;
     }
     
-    const validarSiguientePagina = () => {
-        console.log('siguiente');
+    
+    const incrementPagina = () => {
+        const {desdeProveedor, paginas} = paginacion;
+        const valor = PaginasTotales();
+        
+        if (valor > paginas){
+            setPaginacion({
+                ...paginacion,
+                desdeProveedor: desdeProveedor + 5,
+                paginas: paginas + 1
+            });
+            return true;
+        }
     }
     
-    const validarVolverPagina = () => {
-        console.log('atras');
+    const decrementPagina = () => {
+        const {desdeProveedor, paginas} = paginacion;
+        if (desdeProveedor !== 0 ){
+            setPaginacion({
+                ...paginacion,
+                desdeProveedor: desdeProveedor - 5,
+                paginas: paginas - 1
+            });
+            return
+        }
+    }
+
+
+    const todoOkIncremento = () => {
+        const valor = PaginasTotales();
+        
+      
+        return (valor > paginacion.paginas) ? true : false;
+    }
+
+    const todoOkDecremento = () => {
+        return (paginacion.desdeProveedor !== 0) ? true : false;
     }
 
     const openModal = () => {
@@ -91,15 +119,15 @@ export const TableProveedor = () => {
             <div className='d-grid gap-2 d-md-flex justify-content-md-center '>
                 <button 
                     className='btn btn-dark'
-                    onClick={validarVolverPagina}
-                    // disabled
+                    onClick={decrementPagina}
+                    disabled={!todoOkDecremento()}
                 >
                     ←
                 </button>
                 <button 
                     className='btn btn-dark'
-                    onClick={validarSiguientePagina}
-                    // disabled
+                    onClick={incrementPagina}
+                    disabled={!todoOkIncremento()}
                 >
                     →
                 </button>
