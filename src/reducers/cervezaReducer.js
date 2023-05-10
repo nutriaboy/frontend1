@@ -16,6 +16,23 @@ export const cervezaReducer = (state, action) => {
                 detallesCervezas: action.payload,
                 isLoading: false
             }
+        
+        case types.obtenerProveedorByCerveza:
+            return {
+                ...state,
+                proveedor: action.payload
+            }
+
+        case types.uiOpenModalCerveza:
+            return {
+                ...state,
+                modalOpen: true
+            } 
+        case types.uiCloseModalCerveza:
+            return {
+                ...state,
+                modalOpen: false
+            } 
 
         default:
             return state;

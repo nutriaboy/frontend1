@@ -1,15 +1,28 @@
 import { useContext } from 'react'
 import { CervezaContext } from '../context/CervezaContext'
 import { ItemTableCerveza } from './ItemTableCerveza';
+import { ModalCerveza } from './modalCerveza/ModalCerveza';
 
 
 
 export const TableCerveza = () => {
-    const { stateCerveza } = useContext(CervezaContext);
-    const { detallesCervezas } = stateCerveza
+    const { stateCerveza, openModalCerveza } = useContext(CervezaContext);
+    const { detallesCervezas } = stateCerveza;
+
+    const openModal = () => {
+        openModalCerveza()
+    }
 
     return (
         <div className="container-xxl">
+            <ModalCerveza />
+            <button
+                className='btn btn-info'
+                style={{ marginBottom: 7 }}
+                onClick={openModal}
+            >
+                Agregar Cerveza</button>
+
 
             <table
                 className='table table-striped table-dark table-hover'
@@ -27,7 +40,7 @@ export const TableCerveza = () => {
                 </thead>
                 <tbody>
                     {
-                        detallesCervezas.map((detalleCerveza, index) => 
+                        detallesCervezas.map((detalleCerveza, index) =>
                             <ItemTableCerveza
                                 key={detalleCerveza.id}
                                 ids={index + 1}

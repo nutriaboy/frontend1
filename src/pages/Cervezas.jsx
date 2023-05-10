@@ -5,10 +5,11 @@ import { CervezaContext } from '../context/CervezaContext'
 
 export const Cervezas = () => {
 
-  const { obtenerCervezas, obtenerDetallesCervezas, stateCerveza } = useContext(CervezaContext);
+  const { obtenerCervezas, obtenerDetallesCervezas, stateCerveza, obtenerProveedorByCerveza } = useContext(CervezaContext);
   const { isLoading } = stateCerveza;
 
   useEffect(() => {
+    obtenerProveedorByCerveza(100);
     obtenerCervezas();
     obtenerDetallesCervezas();
   }, [])

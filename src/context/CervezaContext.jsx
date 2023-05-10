@@ -10,6 +10,7 @@ const initialState = {
     isLoading: true,
     cervezas: [],
     detallesCervezas: [],
+    proveedor: [],
     modalOpen: false,
 
 }
@@ -17,6 +18,19 @@ const initialState = {
 export const CervezaProvider = ({ children }) => {
 
     const [stateCerveza, dispatch] = useReducer(cervezaReducer, initialState);
+
+    const obtenerProveedorByCerveza = async (limite = 5) => {
+        const resp = await fetchConToken(`proveedores?limite=${limite}`);
+        if (resp.ok) {
+            const { proveedores } = resp;
+            dispatch({
+                type: types.obtenerProveedorByCerveza,
+                payload: proveedores
+            });
+            return true;
+        }
+
+    }
 
     const obtenerCervezas = async () => {
         const resp = await fetchConToken('cervezas');
@@ -44,11 +58,25 @@ export const CervezaProvider = ({ children }) => {
         }
     }
 
+    const openModalCerveza = () => {
+        dispatch({
+            type: types.uiOpenModalCerveza
+        })
+    }
+    const closeModalCerveza = () => {
+        dispatch({
+            type: types.uiCloseModalCerveza
+        })
+    }
+
     return (
         <CervezaContext.Provider value={{
             stateCerveza,
+            obtenerProveedorByCerveza,
             obtenerCervezas,
             obtenerDetallesCervezas,
+            openModalCerveza,
+            closeModalCerveza,
         }}>
             {children}
         </CervezaContext.Provider>
