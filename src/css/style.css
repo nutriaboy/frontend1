@@ -466,5 +466,8 @@ iframe {
 }
 .btn-red:active {
     color: #ff0019; 
+}
 
+.dropdown-best:active {
+    background-color: #00ccff63;
 }

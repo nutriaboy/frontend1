@@ -9,4 +9,8 @@ export const types = {
     
     uiOpenModal: '[UI] Abrir Modal',
     uiCloseModal: '[UI Cerrar Modal',
+
+    obtenerCervezas: '[Cervezas] Se obtiene los datos de las Cervezas',
+
+    obtenerDetallesCervezas: '[DetallesCervezas] Se obtiene los datos de Detalles de Cervezas'
 }
