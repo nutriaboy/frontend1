@@ -12,6 +12,7 @@ const initialState = {
     detallesCervezas: [],
     proveedor: [],
     modalOpen: false,
+    modalOpen2: false,
 
 }
 

@@ -36,7 +36,7 @@ export const ModalCerveza = () => {
         setIdProveedor(
             e.target.value
         )
-        
+
     }
 
 
@@ -49,7 +49,7 @@ export const ModalCerveza = () => {
             // onAfterOpen={afterOpenModal}
             onRequestClose={modalClose}
             style={customStyles}
-            className="modal modal_2"
+            className="modal modal_3"
             closeTimeoutMS={200}
             overlayClassName="modal-fondo"
         >
@@ -59,18 +59,21 @@ export const ModalCerveza = () => {
 
 
             <hr />
-            <form >
-                <select 
-                    className="form-select" 
+            <form 
+                className='container'
+            >
+                <label>Proveedor</label>
+                <select
+                    className="form-select"
                     onChange={onChange}
                     value={idProveedor}
-                    // defaultValue="DEFAULT"
+                // defaultValue="DEFAULT"
                 >
                     <option value={1}  >Elegir Proveedor...</option>
-                    
+
                     {
-                        proveedor.map((prov) => 
-                        <option value={prov.uid} key={prov.uid}>{prov.nombre}</option>
+                        proveedor.map((prov) =>
+                            <option value={prov.uid} key={prov.uid}>{prov.nombre}</option>
 
                         )
                     }
@@ -79,10 +82,21 @@ export const ModalCerveza = () => {
                     <option value="3">Three</option> */}
                 </select>
 
-                <button className='btn btn-dark mt-3' onClick={modalClose}>
-                    Cerrar a tu mami
+                <div className="d-grid gap-2">
 
-                </button>
+                    <button className='btn btn-outline-dark mt-3' onClick={modalClose}>
+                        Siguiente
+
+                    </button>
+
+
+                    <button className='btn btn-outline-danger ' onClick={modalClose}>
+                        Cerrar
+
+                    </button>
+
+                </div>
+
             </form>
 
 
