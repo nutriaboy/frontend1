@@ -11,6 +11,7 @@ const initialState = {
     cervezas: [],
     cervezaCreada: {},
     detallesCervezas: [],
+    creadoDetalleCerveza: {},
     proveedor: [],
     tipoCerveza: [],
     modalOpen: false,
@@ -50,8 +51,20 @@ export const CervezaProvider = ({ children }) => {
 
     }
 
+    const crearCerveza = async (proveedor) => {
+        const resp = await fetchConToken('cervezas', { proveedor }, 'POST');
+        if (resp.ok) {
+            const { cerveza } = resp;
+            dispatch({
+                type: types.crearCerveza,
+                payload: cerveza
+            })
+        }
+    }
+
     const obtenerDetallesCervezas = async () => {
-        const resp = await fetchConToken('detalleCervezas');
+        //TODO: Solo temporal hasta que haya paginación
+        const resp = await fetchConToken('detalleCervezas?limite=100');
         if (resp.ok) {
             const { detallesCervezas } = resp;
             dispatch({
@@ -63,10 +76,26 @@ export const CervezaProvider = ({ children }) => {
         }
     }
 
+    const crearDetalleCervezas = async (...rest) => {
+        const [data] = rest;
+        const { cerveza, idTipoC: tipoCerveza, marca, nombre, precioUnit } = data;
+
+        const resp = await fetchConToken('detalleCervezas', { cerveza, tipoCerveza, marca, nombre, precioUnit }, 'POST');
+        if (resp.ok) {
+            const { detalleCerveza } = resp;
+            dispatch({
+                type: types.crearDetalleCerveza,
+                payload: detalleCerveza
+            })
+        }
+        obtenerDetallesCervezas();
+    }
+
+
     const obtenerTipoCerveza = async (limite = 5) => {
         const resp = await fetchConToken(`tipoCervezas?limite=${limite}`);
-        if(resp.ok){
-            const {tipoCervezas} = resp; 
+        if (resp.ok) {
+            const { tipoCervezas } = resp;
             dispatch({
                 type: types.obtenerTipoCerveza,
                 payload: tipoCervezas
@@ -120,7 +149,9 @@ export const CervezaProvider = ({ children }) => {
             stateCerveza,
             obtenerProveedorByCerveza,
             obtenerCervezas,
+            crearCerveza,
             obtenerDetallesCervezas,
+            crearDetalleCervezas,
             obtenerTipoCerveza,
             openModalCerveza,
             closeModalCerveza,

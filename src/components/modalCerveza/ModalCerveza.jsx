@@ -7,7 +7,7 @@ import { CervezaContext } from '../../context/CervezaContext';
 
 export const ModalCerveza = () => {
 
-    const { stateCerveza, closeModalCerveza, openModalDetalleCerveza, limpiarModalDetalleCerveza } = useContext(CervezaContext);
+    const { stateCerveza, closeModalCerveza, openModalDetalleCerveza, limpiarModalDetalleCerveza, crearCerveza } = useContext(CervezaContext);
     const { modalOpen, proveedor } = stateCerveza;
     const [idProveedor, setIdProveedor] = useState({})
 
@@ -36,7 +36,7 @@ export const ModalCerveza = () => {
         closeModalCerveza();
         openModalDetalleCerveza();
         limpiarModalDetalleCerveza();
-        console.log(idProveedor);
+        crearCerveza(idProveedor);
         setTimeout(() => {
             setIdProveedor({})
         }, 200);

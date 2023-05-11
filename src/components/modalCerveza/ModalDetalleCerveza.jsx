@@ -14,9 +14,9 @@ export const ModalDetalleCerveza = () => {
         nombre: '',
         marca: '',
         idTipoC: '',
-        precio: '0'
+        precioUnit: '0'
     });
-    const { nombre, marca, idTipoC, precio } = dataDC;
+    const { nombre, marca, idTipoC, precioUnit } = dataDC;
 
     useEffect(() => {
         if (typeof (idTipoCerveza) === "string" && idTipoCerveza !== '1') {
@@ -35,7 +35,7 @@ export const ModalDetalleCerveza = () => {
                 nombre: '',
                 marca: '',
                 idTipoC: '',
-                precio: '0'
+                precioUnit: '0'
             })
         }
 
@@ -62,7 +62,7 @@ export const ModalDetalleCerveza = () => {
         openModalCantidadCerveza();
 
 
-        console.log(nombre, marca, idTipoC, precio);
+        console.log(nombre, marca, idTipoC, precioUnit);
 
 
     }
@@ -162,8 +162,8 @@ export const ModalDetalleCerveza = () => {
                                 className='form-control'
                                 type='number'
                                 placeholder='Precio'
-                                name='precio'
-                                value={precio}
+                                name='precioUnit'
+                                value={precioUnit}
                                 onChange={handleInputChange}
                             />
                         </div>

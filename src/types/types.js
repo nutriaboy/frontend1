@@ -18,9 +18,11 @@ export const types = {
     uiCloseModalCantidad: '[UI] Cerrar Modal de Cantidad de Cerveza',
 
     obtenerCervezas: '[Cervezas] Se obtiene los datos de las Cervezas',
+    crearCerveza: '[Cerveza] Se crea la Cerveza',
     obtenerProveedorByCerveza: '[Cerveza] Obtener Proveedores para usar en Cerveza',
 
     obtenerDetallesCervezas: '[DetallesCervezas] Se obtiene los datos de Detalles de Cervezas',
+    crearDetalleCerveza: '[DetalleCerveza] Se crea Detalle de Cerveza',
 
     obtenerTipoCerveza: '[TipoCerveza] se obtiene los datos de Tipo de Cerveza'
 }

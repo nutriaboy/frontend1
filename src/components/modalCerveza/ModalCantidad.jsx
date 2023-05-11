@@ -1,21 +1,19 @@
 import { useContext, useState } from 'react';
 import Modal from 'react-modal/lib/components/Modal';
 import { CervezaContext } from '../../context/CervezaContext';
-import { crearDetallesCervezas } from '../../helpers/crearDetallesCervezas';
 
 
 
+export const ModalCantidad = ({ data }) => {
 
-export const ModalCantidad = ({data}) => {
-
-    const { stateCerveza, closeModalCantidadCerveza, openModalDetalleCerveza } = useContext(CervezaContext);
-    const {modalOpen3} = stateCerveza;
+    const { stateCerveza, closeModalCantidadCerveza, openModalDetalleCerveza, crearDetalleCervezas } = useContext(CervezaContext);
+    const { modalOpen3, cervezaCreada } = stateCerveza;
     const [totalOfCerveza, setTotalOfCerveza] = useState({
         cantidad: 1
     });
-    const {cantidad} = totalOfCerveza;
+    const { cantidad } = totalOfCerveza;
 
-    
+
     const customStyles = {
         content: {
             top: '50%',
@@ -36,9 +34,17 @@ export const ModalCantidad = ({data}) => {
     const crearDetalleCerveza = (e) => {
         e.preventDefault();
         closeModalCantidadCerveza();
-        console.log(data);
+        data.cerveza = cervezaCreada.id;
         // !Funcion para insertar varios elementos al backend
-        crearDetallesCervezas(cantidad);
+        crearDetallesCer(cantidad, data);
+    }
+
+    const crearDetallesCer = (numRepeticion, ...rest) => {
+        const [dataDetalleCerveza] = rest;
+        console.log(numRepeticion);
+        for (let i = 0; i < numRepeticion; i++) {
+            crearDetalleCervezas(dataDetalleCerveza)
+        }
 
     }
 
@@ -69,7 +75,7 @@ export const ModalCantidad = ({data}) => {
             <h2 >Cantidad de Cervezas a Ingresar</h2>
             <hr />
 
-            
+
 
             <form
                 className='container'

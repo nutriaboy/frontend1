@@ -9,12 +9,24 @@ export const cervezaReducer = (state, action) => {
                 ...state,
                 cervezas: action.payload
             }
+        
+        case types.crearCerveza:
+            return {
+                ...state,
+                cervezaCreada: action.payload
+            }
 
         case types.obtenerDetallesCervezas:
             return {
                 ...state,
                 detallesCervezas: action.payload,
                 isLoading: false
+            }
+
+        case types.crearDetalleCerveza:
+            return {
+                ...state,
+                creadoDetalleCerveza: action.payload
             }
 
         case types.obtenerProveedorByCerveza:
