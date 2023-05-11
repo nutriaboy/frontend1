@@ -7,13 +7,20 @@ export const types = {
     seleccionarProveedor: '[Proveedor] Se selecciona un Proveedor para su edicion',
     limpiarSeleccionProveedor: '[Proveedor] Se elimina la seleccion del Proveedor',
     
-    uiOpenModal: '[UI] Abrir Modal',
-    uiCloseModal: '[UI Cerrar Modal',
+    uiOpenModal: '[UI] Abrir Modal de Proveedor',
+    uiCloseModal: '[UI Cerrar Modal de Proveedor',
     uiOpenModalCerveza: '[UI] Abrir Modal de Cerveza',
-    uiCloseModalCerveza: '[UI Cerrar Modal de Cerveza',
+    uiCloseModalCerveza: '[UI] Cerrar Modal de Cerveza',
+    uiOpenModalDetalleCerveza: '[UI] Abrir Modal de Detalle Cerveza',
+    uiCloseModalDetalleCerveza: '[UI] Cerrar Modal de Detalle Cerveza',
+    limpiarModalDetalleCerveza: '[UI] Limpiar modal de Detalle Cerveza',
+    uiOpenModalCantidad: '[UI] Abrir Modal de Cantidad de Cerveza',
+    uiCloseModalCantidad: '[UI] Cerrar Modal de Cantidad de Cerveza',
 
     obtenerCervezas: '[Cervezas] Se obtiene los datos de las Cervezas',
     obtenerProveedorByCerveza: '[Cerveza] Obtener Proveedores para usar en Cerveza',
 
-    obtenerDetallesCervezas: '[DetallesCervezas] Se obtiene los datos de Detalles de Cervezas'
+    obtenerDetallesCervezas: '[DetallesCervezas] Se obtiene los datos de Detalles de Cervezas',
+
+    obtenerTipoCerveza: '[TipoCerveza] se obtiene los datos de Tipo de Cerveza'
 }

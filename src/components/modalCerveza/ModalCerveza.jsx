@@ -7,7 +7,7 @@ import { CervezaContext } from '../../context/CervezaContext';
 
 export const ModalCerveza = () => {
 
-    const { stateCerveza, closeModalCerveza } = useContext(CervezaContext);
+    const { stateCerveza, closeModalCerveza, openModalDetalleCerveza, limpiarModalDetalleCerveza } = useContext(CervezaContext);
     const { modalOpen, proveedor } = stateCerveza;
     const [idProveedor, setIdProveedor] = useState({})
 
@@ -26,7 +26,17 @@ export const ModalCerveza = () => {
     const modalClose = (e) => {
         e.preventDefault();
         closeModalCerveza();
-        console.log(idProveedor)
+        setTimeout(() => {
+            setIdProveedor({})
+        }, 200);
+    }
+
+    const siguienteModal = (e) => {
+        e.preventDefault();
+        closeModalCerveza();
+        openModalDetalleCerveza();
+        limpiarModalDetalleCerveza();
+        console.log(idProveedor);
         setTimeout(() => {
             setIdProveedor({})
         }, 200);
@@ -36,11 +46,11 @@ export const ModalCerveza = () => {
         setIdProveedor(
             e.target.value
         )
-
     }
 
-
-
+    const todoOk = () => {
+        return ((typeof(idProveedor) === "string" && idProveedor !== '1') ? true : false) 
+    }
 
 
     return (
@@ -77,14 +87,12 @@ export const ModalCerveza = () => {
 
                         )
                     }
-                    {/* <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option> */}
+                    
                 </select>
 
                 <div className="d-grid gap-2">
 
-                    <button className='btn btn-outline-dark mt-3' onClick={modalClose}>
+                    <button className='btn btn-outline-dark mt-3' disabled={!todoOk()} onClick={siguienteModal}>
                         Siguiente
 
                     </button>

@@ -2,6 +2,8 @@ import { useContext } from 'react'
 import { CervezaContext } from '../context/CervezaContext'
 import { ItemTableCerveza } from './ItemTableCerveza';
 import { ModalCerveza } from './modalCerveza/ModalCerveza';
+import { ModalDetalleCerveza } from './modalCerveza/ModalDetalleCerveza';
+import { ModalCantidad } from './modalCerveza/ModalCantidad';
 
 
 
@@ -16,6 +18,8 @@ export const TableCerveza = () => {
     return (
         <div className="container-xxl">
             <ModalCerveza />
+            <ModalDetalleCerveza />
+            {/* <ModalCantidad /> */}
             <button
                 className='btn btn-info'
                 style={{ marginBottom: 7 }}
