@@ -46,9 +46,9 @@ export const ItemTableProveedor = (...data) => {
 
     return (
         <tr>
-            <td>{proveedor.id}</td>
             <td>{proveedor.nombre}</td>
             <td>{proveedor.correo}</td>
+            <td>{proveedor.rut}</td>
             <td>{proveedor.telefono}</td>
             <td>{proveedor.direccion}</td>
             <td>

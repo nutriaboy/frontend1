@@ -24,7 +24,7 @@ export const ModalProveedor = () => {
     const { modalOpen, selectProveedor, isOk } = state;
 
     const [dataProveedor, setDataProveedor] = useState({});
-    const { nombre = '', correo = '', telefono = '', direccion = '', uid } = dataProveedor;
+    const { nombre = '', correo = '', rut = '', telefono = '', direccion = '', uid } = dataProveedor;
 
     useEffect(() => {
         if (selectProveedor) {
@@ -57,7 +57,7 @@ export const ModalProveedor = () => {
 
         Swal.fire(warningAlert).then((result) => {
             if (result.isConfirmed) {
-                actualizarProveedor({ nombre, correo, telefono, direccion, uid });
+                actualizarProveedor({ nombre, correo, rut, telefono, direccion, uid });
                 closeModal();
     
               Swal.fire(
@@ -71,7 +71,7 @@ export const ModalProveedor = () => {
 
     const handleSave = async(e) => {
         e.preventDefault();
-        const [msg] = await crearProveedor({ nombre, correo, telefono, direccion });
+        const [msg] = await crearProveedor({ nombre, correo, rut, telefono, direccion });
 
         if (msg) {
             Swal.fire('Error', msg, 'error');
@@ -137,6 +137,18 @@ export const ModalProveedor = () => {
                         name='correo'
                         value={correo}
                         onChange={handleInputChange}
+                    />
+                </div>
+                <div className='form-group'>
+                    <label>Rut</label>
+                    <input
+                        className='form-control'
+                        type='text'
+                        placeholder='Rut'
+                        name='rut'
+                        value={rut}
+                        onChange={handleInputChange}
+                        disabled={(isOk) ? true :false}
                     />
                 </div>
                 <div className='form-group'>

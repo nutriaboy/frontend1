@@ -59,8 +59,8 @@ export const UsuarioProvider = ({ children }) => {
 
     const crearProveedor = async (...data) => {
         const [nuevoProveedor] = data
-        const { nombre, correo, telefono, direccion } = nuevoProveedor
-        const resp = await fetchConToken('proveedores', { nombre, correo, telefono, direccion }, 'POST');
+        const { nombre, correo, rut, telefono, direccion } = nuevoProveedor
+        const resp = await fetchConToken('proveedores', { nombre, correo, rut, telefono, direccion }, 'POST');
         if (resp.ok) {
             obtenerProveedor();
             const msg = false;
@@ -76,8 +76,8 @@ export const UsuarioProvider = ({ children }) => {
 
     const actualizarProveedor = async (...data) => {
         const [dataProveedor] = data
-        const { nombre, correo, telefono, direccion, uid } = dataProveedor;
-        console.log(dataProveedor)
+        const { nombre, correo, rut, telefono, direccion, uid } = dataProveedor;
+        // console.log(dataProveedor)
         const resp = await fetchConToken(`proveedores/${uid}`, { nombre, correo, telefono, direccion }, 'PUT');
         console.log(resp);
         if (resp.ok) {

@@ -84,9 +84,9 @@ export const TableProveedor = () => {
             >
                 <thead>
                     <tr>
-                        <th /*style={{ width: 80}}*/ scope="col">ID</th>
                         <th /*style={{ width: 80}}*/ scope="col">Nombre</th>
                         <th /*style={{ width: 150}}*/ scope="col">Correo</th>
+                        <th /*style={{ width: 80}}*/ scope="col">Rut</th>
                         <th /*style={{ width: 80}}*/ scope="col">Teléfono</th>
                         <th /*style={{ width: 80}}*/ scope="col">Dirección</th>
                         <th /*style={{ width: 80}}*/ scope="col">Editar</th>
