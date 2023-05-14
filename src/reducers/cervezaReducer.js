@@ -9,7 +9,7 @@ export const cervezaReducer = (state, action) => {
                 ...state,
                 cervezas: action.payload
             }
-        
+
         case types.crearCerveza:
             return {
                 ...state,
@@ -27,6 +27,43 @@ export const cervezaReducer = (state, action) => {
             return {
                 ...state,
                 creadoDetalleCerveza: action.payload
+            }
+
+        case types.actualizarDetalleCerveza:
+            return {
+                ...state,
+                detallesCervezas: state.detallesCervezas.map(
+                    e => ( e.id === action.payload.id)
+                                ? action.payload
+                                : e
+                )
+            }
+
+        case types.eliminarDetalleCerveza:
+            return {
+                ...state,
+                detallesCervezas: state.detallesCervezas.filter(
+                    e => (e.id === action.payload.id)
+                        ? false
+                        : true
+                )
+            }
+
+        case types.seleccionarDetalleCerveza:
+            return {
+                ...state,
+                selectDC: action.payload,
+                isOk: true
+            }
+        case types.uiOpenModalEditarDC:
+            return{
+                ...state,
+                modalEditarDC: true
+            }
+        case types.uiCloseModalEditarDC:
+            return{
+                ...state,
+                modalEditarDC: false
             }
 
         case types.obtenerProveedorByCerveza:
@@ -64,7 +101,7 @@ export const cervezaReducer = (state, action) => {
             }
 
         case types.limpiarModalDetalleCerveza:
-            return { 
+            return {
                 ...state,
                 cleanInputModal2: true
             }

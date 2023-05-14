@@ -2,47 +2,44 @@ import Modal from 'react-modal/lib/components/Modal';
 import '../../css/modal.css';
 import { useContext, useEffect, useState } from 'react';
 import { CervezaContext } from '../../context/CervezaContext';
-import { ModalCantidad } from './ModalCantidad';
+import Swal from 'sweetalert2';
 
 
-export const ModalDetalleCerveza = () => {
+const warningAlert = {
+    title: 'Actualizar Detalle Cerveza',
+    iconColor:'#F99020',
+    text: "¿Seguro que quieres Actualizar los Datos?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#207CF9',
+    cancelButtonColor: '#5C5B5B',
+    confirmButtonText: 'Si, Actualizar!'
+  }
 
-    const { stateCerveza, closeModalDetalleCerveza, openModalCantidadCerveza, } = useContext(CervezaContext);
-    const { modalOpen2, tipoCerveza, cleanInputModal2 } = stateCerveza;
-    const [idTipoCerveza, setIdTipoCerveza] = useState({})
+export const ModalEditarDC = () => {
+
+    const { stateCerveza, closeModalEditarDC, actualizarDetalleCerveza } = useContext(CervezaContext);
+    const { modalEditarDC, tipoCerveza, selectDC } = stateCerveza;
+
+    const [idTipoCerveza, setIdTipoCerveza] = useState()
     const [dataDC, setDataDC] = useState({
         nombre: '',
         marca: '',
         idTipoC: '',
         precioUnit: '0'
     });
-    const { nombre, marca, idTipoC, precioUnit } = dataDC;
+    const { nombre, marca, precioUnit, id } = dataDC;
+
 
     useEffect(() => {
-        if (typeof (idTipoCerveza) === "string" && idTipoCerveza !== '1') {
-            setDataDC({
-                ...dataDC,
-                idTipoC: idTipoCerveza
-            });
+        // ? Evaluar si el objeto viene vacio
+        if (Object.entries(selectDC).length !== 0) {
+            setDataDC(selectDC)
+            const {_id} = selectDC.tipoCerveza
+            setIdTipoCerveza(_id);
+            
         }
-    }, [idTipoCerveza])
-
-    useEffect(() => {
-
-        if (cleanInputModal2) {
-            setIdTipoCerveza({});
-            setDataDC({
-                nombre: '',
-                marca: '',
-                idTipoC: '',
-                precioUnit: '0'
-            })
-        }
-
-
-    }, [cleanInputModal2])
-
-
+    }, [selectDC])
 
     const customStyles = {
         content: {
@@ -56,20 +53,9 @@ export const ModalDetalleCerveza = () => {
     };
     Modal.setAppElement('#root');
 
-    const modalOpenCantidad = (e) => {
-        e.preventDefault();
-        closeModalDetalleCerveza();
-        openModalCantidadCerveza();
-
-
-        console.log(nombre, marca, idTipoC, precioUnit);
-
-
-    }
-
     const modalClose = (e) => {
         e.preventDefault();
-        closeModalDetalleCerveza();
+        closeModalEditarDC();
         setTimeout(() => {
             setIdTipoCerveza({})
         }, 200);
@@ -81,6 +67,22 @@ export const ModalDetalleCerveza = () => {
             ...dataDC,
             [target.name]: target.value
         })
+    }
+
+    const handleSave = (e) => {
+        e.preventDefault();
+        Swal.fire(warningAlert).then((result) => {
+            if (result.isConfirmed) {
+                actualizarDetalleCerveza({ id, nombre, marca, precioUnit, idTipoCerveza });
+                closeModalEditarDC();
+    
+              Swal.fire(
+                  'Guardado!',
+                  'Datos Actualizados...',
+                  'success'
+              )
+            }
+          })
     }
 
     const onChange = (e) => {
@@ -95,9 +97,8 @@ export const ModalDetalleCerveza = () => {
 
     return (
         <>
-            <ModalCantidad data={dataDC}/>
             <Modal
-                isOpen={modalOpen2}
+                isOpen={modalEditarDC}
                 // onAfterOpen={afterOpenModal}
                 onRequestClose={modalClose}
                 style={customStyles}
@@ -172,8 +173,8 @@ export const ModalDetalleCerveza = () => {
 
                     <div className="d-grid gap-2">
 
-                        <button className='btn btn-outline-dark mt-3' disabled={!todoOk()} onClick={modalOpenCantidad}>
-                            Siguiente
+                        <button className='btn btn-outline-dark mt-3' disabled={!todoOk()} onClick={handleSave}>
+                            Guardar Cambio
                         </button>
 
 

@@ -4,6 +4,7 @@ import { ItemTableCerveza } from './ItemTableCerveza';
 import { ModalCerveza } from './modalCerveza/ModalCerveza';
 import { ModalDetalleCerveza } from './modalCerveza/ModalDetalleCerveza';
 import { ModalCantidad } from './modalCerveza/ModalCantidad';
+import { ModalEditarDC } from './modalCerveza/ModalEditarDC';
 
 
 
@@ -19,6 +20,7 @@ export const TableCerveza = () => {
         <div className="container-xxl">
             <ModalCerveza />
             <ModalDetalleCerveza />
+            <ModalEditarDC />
             {/* <ModalCantidad /> */}
             <button
                 className='btn btn-info'

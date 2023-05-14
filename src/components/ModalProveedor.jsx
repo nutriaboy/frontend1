@@ -27,7 +27,7 @@ export const ModalProveedor = () => {
     const { nombre = '', correo = '', rut = '', telefono = '', direccion = '', uid } = dataProveedor;
 
     useEffect(() => {
-        if (selectProveedor) {
+        if (Object.entries(selectProveedor).length !== 0) {
             setDataProveedor(selectProveedor)
         }
     }, [selectProveedor])

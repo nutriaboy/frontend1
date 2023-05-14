@@ -16,6 +16,8 @@ export const types = {
     limpiarModalDetalleCerveza: '[UI] Limpiar modal de Detalle Cerveza',
     uiOpenModalCantidad: '[UI] Abrir Modal de Cantidad de Cerveza',
     uiCloseModalCantidad: '[UI] Cerrar Modal de Cantidad de Cerveza',
+    uiOpenModalEditarDC: '[UI] Abre Modal de Editar Detalle Cerveza',
+    uiCloseModalEditarDC: '[UI] Cierra Modal de Editar Detalle Cerveza',
 
     obtenerCervezas: '[Cervezas] Se obtiene los datos de las Cervezas',
     crearCerveza: '[Cerveza] Se crea la Cerveza',
@@ -23,6 +25,9 @@ export const types = {
 
     obtenerDetallesCervezas: '[DetallesCervezas] Se obtiene los datos de Detalles de Cervezas',
     crearDetalleCerveza: '[DetalleCerveza] Se crea Detalle de Cerveza',
+    actualizarDetalleCerveza: '[DetalleCerveza] Se actualiza un Detalle Cerveza',
+    eliminarDetalleCerveza: '[DetalleCerveza] Se elimina un Detalle de Cerveza',
+    seleccionarDetalleCerveza: '[DetalleCerveza] Se selecciona un Detalle de Cerveza par su edicion',
 
     obtenerTipoCerveza: '[TipoCerveza] se obtiene los datos de Tipo de Cerveza'
 }

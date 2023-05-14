@@ -17,6 +17,9 @@ const initialState = {
     modalOpen: false,
     modalOpen2: false,
     modalOpen3: false,
+    modalEditarDC: false,
+    selectDC: {},
+    isOk: false,
     cleanInputModal2: false,
 
 }
@@ -72,7 +75,6 @@ export const CervezaProvider = ({ children }) => {
                 payload: detallesCervezas
             });
             return true;
-
         }
     }
 
@@ -89,6 +91,50 @@ export const CervezaProvider = ({ children }) => {
             })
         }
         obtenerDetallesCervezas();
+    }
+
+    const actualizarDetalleCerveza = async (...rest) => {
+        const [data] = rest;
+        let { id, nombre, marca, precioUnit, idTipoCerveza: tipoCerveza} = data;
+        if (typeof(precioUnit) === "string" ) precioUnit = parseInt(precioUnit);
+        precioUnit = precioUnit;
+        
+        const resp = await fetchConToken(`detalleCervezas/${id}`, { nombre, marca, tipoCerveza, precioUnit }, 'PUT');
+        
+        console.log(resp);
+        if (resp.ok) {
+            const { detalleCerveza } = resp;
+            dispatch({
+                type: types.actualizarDetalleCerveza,
+                payload: detalleCerveza
+            });
+            return true;
+        }
+        if (!resp.ok && !resp.msg) {
+            const { msg } = resp.errors[0]
+            return [msg]
+        }
+        const { msg } = resp
+        return [msg]
+    }
+
+    const seleccionarDetalleCerveza = ({...data}) => {
+        dispatch({
+            type: types.seleccionarDetalleCerveza,
+            payload: data
+        })
+    }
+
+    const eliminarDetalleCerveza = async (id) => {
+        console.log(id)
+        const resp = await fetchConToken(`detalleCervezas/${id}`, {}, 'DELETE');
+        if (resp.ok){
+            const {detalleCervezaBorrada} = resp;
+            dispatch({
+                type: types.eliminarDetalleCerveza,
+                payload: detalleCervezaBorrada
+            });
+        }
     }
 
 
@@ -142,6 +188,12 @@ export const CervezaProvider = ({ children }) => {
         })
     }
 
+    const openModalEditarDC = () => {
+        dispatch({type: types.uiOpenModalEditarDC})
+    }
+    const closeModalEditarDC = () => {
+        dispatch({type: types.uiCloseModalEditarDC})
+    }
 
 
     return (
@@ -152,6 +204,9 @@ export const CervezaProvider = ({ children }) => {
             crearCerveza,
             obtenerDetallesCervezas,
             crearDetalleCervezas,
+            actualizarDetalleCerveza,
+            eliminarDetalleCerveza,
+            seleccionarDetalleCerveza,
             obtenerTipoCerveza,
             openModalCerveza,
             closeModalCerveza,
@@ -160,6 +215,8 @@ export const CervezaProvider = ({ children }) => {
             limpiarModalDetalleCerveza,
             openModalCantidadCerveza,
             closeModalCantidadCerveza,
+            openModalEditarDC,
+            closeModalEditarDC
         }}>
             {children}
         </CervezaContext.Provider>
