@@ -28,8 +28,9 @@ export const ModalProveedor = () => {
 
     useEffect(() => {
         if (Object.entries(selectProveedor).length !== 0) {
-            setDataProveedor(selectProveedor)
+            return setDataProveedor(selectProveedor)
         }
+        setDataProveedor({});
     }, [selectProveedor])
 
 
