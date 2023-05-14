@@ -20,26 +20,30 @@ export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(initialState);
 
     const login = async (correo, password) => {
-        const resp = await fetchSinToken('auth/login', { correo, password }, 'POST')
-
-        if (resp.ok) {
-            localStorage.setItem('token', resp.token);
-            const { usuario } = resp;
-            setAuth({
-                checking: false,
-                uid: usuario.uid,
-                name: usuario.nombre,
-                correo: usuario.correo,
-                logged: true,
-            })
+        const resp = await fetchSinToken('auth/admin', { correo, password }, 'POST')
+        try {
+            if (resp.ok) {
+                localStorage.setItem('token', resp.token);
+                const { usuario } = resp;
+                setAuth({
+                    checking: false,
+                    uid: usuario.uid,
+                    name: usuario.nombre,
+                    correo: usuario.correo,
+                    logged: true,
+                })
+            }
+    
+            // condicion para ver error del backend
+            if (resp.msg === undefined && !resp.ok){
+                resp.msg = resp.errors[0].msg
+            }
+    
+            return [ resp.ok, resp.msg]
+            
+        } catch (error) {
+            console.log(error)
         }
-
-        // condicion para ver error del backend
-        if (resp.msg === undefined && !resp.ok){
-            resp.msg = resp.errors[0].msg
-        }
-
-        return [ resp.ok, resp.msg]
     }
 
     const logout = () => {

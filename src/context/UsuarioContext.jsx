@@ -77,6 +77,7 @@ export const UsuarioProvider = ({ children }) => {
     const actualizarProveedor = async (...data) => {
         const [dataProveedor] = data
         const { nombre, correo, telefono, direccion, uid } = dataProveedor;
+        console.log(dataProveedor)
         const resp = await fetchConToken(`proveedores/${uid}`, { nombre, correo, telefono, direccion }, 'PUT');
         console.log(resp);
         if (resp.ok) {

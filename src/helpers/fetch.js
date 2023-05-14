@@ -23,11 +23,13 @@ const fetchSinToken = async(endpoint, data, method = 'GET') => {
         }
         
     } catch (error) {
-        console.warn('No se establecion conexión con el Backend');
+        const msg = 'No se pudo establecer conexión con el Servidor'
+        Swal.fire('Error', msg, 'error');
+        console.warn(msg);
         return false;
     }
-
 }
+
 
 const fetchConToken = async(endpoint, data, method = 'GET') => {
 
