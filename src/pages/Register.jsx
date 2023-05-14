@@ -1,16 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { UsuarioContext } from '../context/UsuarioContext';
-import { useForm } from '../hooks/useForm'
 import Swal from 'sweetalert2';
 
 
 
 export const Register = () => {
 
-    const {register} = useContext(UsuarioContext);
+    const { register } = useContext(UsuarioContext);
+    const [selectGenero, setSelectGenero] = useState('1')
 
-    const [valuesInput, handleInputChange] = useForm({
+    const [valuesInput, setValuesInput] = useState({
         nombre: '',
         apellido: '',
         correo: '',
@@ -23,11 +23,28 @@ export const Register = () => {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if(selectGenero !== '1') {
+            setValuesInput({
+                ...valuesInput,
+                genero: selectGenero
+            })
+        }
+        if( selectGenero === '1'){
+            setValuesInput({
+                ...valuesInput,
+                genero: ''
+            })
+        }
+    }, [selectGenero])
+    
 
-    const handleRegister = async(e) => {
+
+    const handleRegister = async (e) => {
         e.preventDefault();
+
         const [msg, ok] = await register(nombre, apellido, correo, password, telefono, direccion, genero);
-        if (!ok){
+        if (!ok) {
             Swal.fire('Error', msg, 'error');
         } else {
             Swal.fire('Registrado', msg, 'success');
@@ -36,6 +53,23 @@ export const Register = () => {
             });
         }
 
+    }
+    const handleInputChange = ({ target }) => {
+
+        setValuesInput({
+            ...valuesInput,
+            [ target.name ]: target.value
+        })
+    }
+
+    const onChange = (e) => {
+        setSelectGenero(
+            e.target.value
+        )
+    }
+
+    const todoOk = () => {
+        return ((nombre.length > 1 && apellido.length > 1 && correo.length > 1 && password.length > 1 && telefono.length > 1 && direccion.length > 1 && genero !== '') ? true :false);
     }
 
 
@@ -53,7 +87,7 @@ export const Register = () => {
                 <span className="txt1 p-b-11">
                     Nombre
                 </span>
-                <div className="wrap-input100 validate-input m-b-12" data-validate="Username is required">
+                <div className="wrap-input100 validate-input m-b-12">
 
                     <input className="input100"
                         type="text"
@@ -67,7 +101,7 @@ export const Register = () => {
                 <span className="txt1 p-b-11">
                     Apellido
                 </span>
-                <div className="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                <div className="wrap-input100 validate-input m-b-12">
                     <span className="btn-show-pass">
                         <i className="fa fa-eye"></i>
                     </span>
@@ -87,7 +121,7 @@ export const Register = () => {
                 <span className="txt1 p-b-11">
                     Correo
                 </span>
-                <div className="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                <div className="wrap-input100 validate-input m-b-12">
                     <span className="btn-show-pass">
                         <i className="fa fa-eye"></i>
                     </span>
@@ -106,7 +140,7 @@ export const Register = () => {
                 <span className="txt1 p-b-11">
                     Contraseña
                 </span>
-                <div className="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                <div className="wrap-input100 validate-input m-b-12">
                     <span className="btn-show-pass">
                         <i className="fa fa-eye"></i>
                     </span>
@@ -126,7 +160,7 @@ export const Register = () => {
                 <span className="txt1 p-b-11">
                     Teléfono
                 </span>
-                <div className="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                <div className="wrap-input100 validate-input m-b-12" >
                     <span className="btn-show-pass">
                         <i className="fa fa-eye"></i>
                     </span>
@@ -146,7 +180,7 @@ export const Register = () => {
                 <span className="txt1 p-b-11">
                     Dirección
                 </span>
-                <div className="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                <div className="wrap-input100 validate-input m-b-12" >
                     <span className="btn-show-pass">
                         <i className="fa fa-eye"></i>
                     </span>
@@ -165,8 +199,25 @@ export const Register = () => {
                 <span className="txt1 p-b-11">
                     Genero
                 </span>
-                <div className="wrap-input100 validate-input m-b-12" data-validate="Password is required">
-                    <span className="btn-show-pass">
+                <div className="wrap-input100 validate-input m-b-12" >
+
+                    {/* <label>Proveedor</label> */}
+
+                    <select
+                        className="form-select input100-select"
+                    //input100-select form-select
+                    onChange={onChange}
+                    value={selectGenero}
+                    // defaultValue="DEFAULT"
+                    >
+                        <option value={1}  >Elegir Genero...</option>
+
+                        <option value="M" >Masculino</option>
+                        <option value="F" >Femenino</option>
+
+
+                    </select>
+                    {/* <span className="btn-show-pass">
                         <i className="fa fa-eye"></i>
                     </span>
 
@@ -177,6 +228,7 @@ export const Register = () => {
                         value={genero}
                         onChange={handleInputChange}
                     />
+                */}
 
                     <span className="focus-input100"></span>
                 </div>
@@ -197,7 +249,7 @@ export const Register = () => {
                     <button
                         className="btn btn-dark btn-lg"
                         type='submit'
-                    // disabled={!todoOk()}
+                        disabled={!todoOk()}
                     >
                         Guardar
                     </button>
