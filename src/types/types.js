@@ -1,5 +1,7 @@
 export const types = {
     registrarUsuario: '[User] Registar un Usuario',
+    obtenerUsuarios: '[User] Obtener todos los Usuarios',
+    editarRolUsuario: '[User] Cambiar el rol del Usuairo',
 
     obtenerProveedores: '[Proveedor] Se obtiene los datos de los Proveedores',
     actualizarProveedor: '[Proveedor] Se actualiza un Proveedor',

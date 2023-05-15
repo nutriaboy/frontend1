@@ -4,10 +4,29 @@ import { types } from '../types/types';
 
 export const usuarioReducer = (state, action) => {
     switch (action.type) {
+
+        case types.obtenerUsuarios: 
+            return {
+                ...state,
+                usuarios: action.payload[0],
+                totalUsuarios: action.payload[1],
+                isLoading: false
+            }
+
         case types.registrarUsuario:
             return {
                 ...state,
                 usuario: action.payload
+            }
+
+        case types.editarRolUsuario:
+            return {
+                ...state,
+                usuarios: state.usuarios.map(
+                    e => ( e.uid === action.payload.uid)
+                                ? action.payload
+                                : e
+                )
             }
 
         case types.obtenerProveedores:

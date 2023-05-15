@@ -6,6 +6,7 @@ import { AuthContext } from '../context/AuthContext'
 export const Navbar = () => {
 
     const { logout, auth } = useContext(AuthContext);
+    const {user} = auth;
     const [clic, setClic] = useState(false)
 
     const navigate = useNavigate();
@@ -65,16 +66,20 @@ export const Navbar = () => {
                             href="#"
                             onClick={eventoClick}
                         >
-                            Bienvenida/o   <span className={(clic ? ' text-info ' : '')}> {auth.name}</span>
+                            {(user.genero === 'M') ? 'Bienvenido' : 'Bienvenida'}   <span className={(clic ? ' text-info ' : '')}> {auth.name}</span>
                         </a>
                         <ul className={'dropdown-menu dropdown-menu-dark' + (clic ? ' show' : '')}>
 
+                        <li><Link
+                                className="dropdown-item dropdown-best"
+                                to="/usuarios"
+                            >
+                                Ver Usuarios</Link></li>
                             <li><Link
                                 className="dropdown-item dropdown-best"
                                 to="/editarPerfil"
-
                             >
-                                Editar</Link></li>
+                                Editar Mi Perfil</Link></li>
                             <li><button
                                 className='dropdown-item dropdown-best'
                                 onClick={handleLogout}

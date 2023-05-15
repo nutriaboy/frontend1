@@ -27,6 +27,9 @@ export const Cervezas = () => {
           : <TableCerveza />
       }
 
+      <div
+        className='pb-5'
+      />
 
     </div>
   )

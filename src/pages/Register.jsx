@@ -14,12 +14,13 @@ export const Register = () => {
         nombre: '',
         apellido: '',
         correo: '',
+        rut: '',
         password: '',
         telefono: '',
         direccion: '',
         genero: ''
     })
-    const { nombre, apellido, correo, password, telefono, direccion, genero } = valuesInput;
+    const { nombre, apellido, correo, rut, password, telefono, direccion, genero } = valuesInput;
 
     const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ export const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        const [msg, ok] = await register(nombre, apellido, correo, password, telefono, direccion, genero);
+        const [msg, ok] = await register(nombre, apellido, correo, rut, password, telefono, direccion, genero);
         if (!ok) {
             Swal.fire('Error', msg, 'error');
         } else {
@@ -69,7 +70,7 @@ export const Register = () => {
     }
 
     const todoOk = () => {
-        return ((nombre.length > 1 && apellido.length > 1 && correo.length > 1 && password.length > 1 && telefono.length > 1 && direccion.length > 1 && genero !== '') ? true :false);
+        return ((nombre.length > 1 && apellido.length > 1 && correo.length > 1 && rut.length > 1 && password.length > 1 && telefono.length > 1 && direccion.length > 1 && genero !== '') ? true :false);
     }
 
 
@@ -131,6 +132,25 @@ export const Register = () => {
                         name="correo"
                         placeholder='Correo'
                         value={correo}
+                        onChange={handleInputChange}
+                    />
+
+                    <span className="focus-input100"></span>
+                </div>
+
+                <span className="txt1 p-b-11">
+                    Rut
+                </span>
+                <div className="wrap-input100 validate-input m-b-12">
+                    <span className="btn-show-pass">
+                        <i className="fa fa-eye"></i>
+                    </span>
+
+                    <input className="input100"
+                        type="text"
+                        name="rut"
+                        placeholder='Rut'
+                        value={rut}
                         onChange={handleInputChange}
                     />
 

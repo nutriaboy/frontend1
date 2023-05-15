@@ -10,6 +10,7 @@ export const UsuarioContext = createContext();
 const initialState = {
     isLoading: true,
     usuarios: [],
+    totalUsuarios: 0,
     usuario: {},
     proveedor: [],
     totalProveedor: 0,
@@ -22,10 +23,23 @@ export const UsuarioProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(usuarioReducer, initialState);
 
-    const register = async (...data) => {
-        const [nombre, apellido, correo, password, telefono, direccion, genero] = data;
+    const obtenerUsuarios = async () => {
+        const resp = await fetchConToken(`usuarios?limite=${100}`);
+        if (resp.ok) {
+            const { usuarios, total } = resp;
+            
+            dispatch({
+                type: types.obtenerUsuarios,
+                payload: [usuarios, total]
+            })
+        }
 
-        const resp = await fetchSinToken('usuarios', { nombre, apellido, correo, password, telefono, direccion, genero }, 'POST');
+    }
+
+    const register = async (...data) => {
+        const [nombre, apellido, correo, rut, password, telefono, direccion, genero] = data;
+
+        const resp = await fetchSinToken('usuarios', { nombre, apellido, correo, rut, password, telefono, direccion, genero }, 'POST');
 
         if (resp.ok) {
             const { usuario } = resp;
@@ -42,6 +56,21 @@ export const UsuarioProvider = ({ children }) => {
             return [msg]
         }
 
+    }
+
+    const editarRolUsuario = async (rol, uid) => {
+        
+        const resp = await fetchConToken(`usuarios/admin/${uid}`, {rol}, 'PUT');
+
+        if (resp.ok){
+            const {usuario} = resp;
+            dispatch({
+                type: types.editarRolUsuario,
+                payload: usuario
+            });
+            return true;
+        }
+        console.log(resp);
     }
 
     const obtenerProveedor = async (desde = 0) => {
@@ -133,7 +162,9 @@ export const UsuarioProvider = ({ children }) => {
     return (
         <UsuarioContext.Provider value={{
             state,
+            obtenerUsuarios,
             register,
+            editarRolUsuario,
             obtenerProveedor,
             crearProveedor,
             actualizarProveedor,
