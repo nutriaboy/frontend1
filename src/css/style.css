@@ -186,6 +186,21 @@ iframe {
     background-color: #1c1c1c
 }
 
+.container-login101 {
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: #1c1c1cf1
+}
+
 .wrap-login100 {
     width: 560px;
     background: #fff;
@@ -500,4 +515,16 @@ iframe {
 
 .dropdown-best:active {
     background-color: #00ccff63;
+}
+
+.btn-volver { 
+    color: #575fff;
+}
+
+.btn-volver:hover { 
+    color: #3facff;
+}
+.btn-volver:active { 
+    color: #000000;
+    box-shadow: #000000;
 }

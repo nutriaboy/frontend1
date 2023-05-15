@@ -12,6 +12,7 @@ const initialState = {
     name: null,
     correo: null,
     logged: false,
+    user: {},
 }
 
 // Proveer contexto
@@ -30,6 +31,7 @@ export const AuthProvider = ({ children }) => {
                     uid: usuario.uid,
                     name: usuario.nombre,
                     correo: usuario.correo,
+                    user: usuario,
                     logged: true,
                 })
             }
@@ -50,6 +52,36 @@ export const AuthProvider = ({ children }) => {
         setAuth(initialState);
     }
 
+    const editarPerfilUsuario = async(...rest) => {
+        const [data] = rest;
+        const {nombre, apellido, correo, direccion, telefono, uid} = data;
+        const resp = await fetchConToken(`usuarios/${uid}`, { nombre, apellido, direccion, telefono }, 'PUT');
+        try {
+            if (resp.ok) {
+                const { usuario } = resp;
+                setAuth({
+                    checking: false,
+                    uid: usuario.uid,
+                    name: usuario.nombre,
+                    correo: usuario.correo,
+                    user: usuario,
+                    logged: true,
+                })
+            }
+    
+            // condicion para ver error del backend
+            if (resp.msg === undefined && !resp.ok){
+                resp.msg = resp.errors[0].msg
+            }
+    
+            return [ resp.ok, resp.msg]
+            
+        } catch (error) {
+            console.log(error)
+        }
+
+    } 
+
     const verificarToken = useCallback( async() =>{
         const token = localStorage.getItem('token');
 
@@ -60,6 +92,7 @@ export const AuthProvider = ({ children }) => {
                 uid: null,
                 name: null,
                 correo: null,
+                user: {},
             })
             return false;
         }
@@ -73,7 +106,8 @@ export const AuthProvider = ({ children }) => {
                 logged: true,
                 uid: usuario.uid,
                 name: usuario.nombre,
-                correo: usuario.correo
+                correo: usuario.correo,
+                user: usuario,
             });
             return true;
         } else {
@@ -83,6 +117,7 @@ export const AuthProvider = ({ children }) => {
                 uid: null,
                 name: null,
                 correo: null,
+                user: {}
             });
             return false;
         }
@@ -94,6 +129,7 @@ export const AuthProvider = ({ children }) => {
             auth,
             login,
             logout,
+            editarPerfilUsuario,
             verificarToken,
         }}>
             {children}

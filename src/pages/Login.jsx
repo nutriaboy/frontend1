@@ -116,7 +116,7 @@ export const Login = () => {
                                     type='submit'
                                     disabled={!todoOk()}
                                 >
-                                    Inicias Sesión
+                                    Iniciar Sesión
                                 </button>
                             </div>
                         </form>

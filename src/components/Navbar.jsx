@@ -69,12 +69,12 @@ export const Navbar = () => {
                         </a>
                         <ul className={'dropdown-menu dropdown-menu-dark' + (clic ? ' show' : '')}>
 
-                            <li><a
+                            <li><Link
                                 className="dropdown-item dropdown-best"
-                                href="#"
+                                to="/editarPerfil"
 
                             >
-                                Editar</a></li>
+                                Editar</Link></li>
                             <li><button
                                 className='dropdown-item dropdown-best'
                                 onClick={handleLogout}

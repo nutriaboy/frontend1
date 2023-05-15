@@ -108,7 +108,7 @@ export const ModalEditarDC = () => {
             >
 
 
-                <h2 >Agregar Detalle Cerveza</h2>
+                <h2 >Actualizar Detalle Cerveza</h2>
 
                 <hr />
                 <form
