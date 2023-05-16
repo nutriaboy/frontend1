@@ -22,10 +22,8 @@ export const ItemTableUsuario = (...data) => {
 
     const cambiarRolUsuario = (e) => {
         e.preventDefault();
-
         Swal.fire(warningAlert).then((result) => {
             if (result.isConfirmed) {
-
                 (usuario.rol === 'USER_ROLE') ? editarRolUsuario('ADMIN_ROLE', usuario.uid) : editarRolUsuario('USER_ROLE', usuario.uid)
 
                 Swal.fire(
@@ -35,7 +33,11 @@ export const ItemTableUsuario = (...data) => {
                 )
             }
         })
+    }
 
+    const deleteUser = (e) => {
+        e.preventDefault();
+        console.log('eliminar');
     }
 
     return (
@@ -58,6 +60,11 @@ export const ItemTableUsuario = (...data) => {
                                     (usuario.rol === 'USER_ROLE') ? 'Administrador' : 'Usuario'
                                 }
 
+                            </button>
+                        </td>
+                        <td>
+                            <button className='btn btn-danger' onClick={deleteUser} >
+                                Borrar
                             </button>
                         </td>
 

@@ -73,6 +73,16 @@ export const UsuarioProvider = ({ children }) => {
         console.log(resp);
     }
 
+    const eliminarUsuario = async (uid) => {
+        const resp = await fetchConToken(`usuarios/${uid}`, {}, 'DELETE');
+        console.log(resp);
+        if (resp.ok) {
+            // const { }
+        }
+
+
+    }
+
     const obtenerProveedor = async (desde = 0) => {
         const resp = await fetchConToken(`proveedores?desde=${desde}`);
 

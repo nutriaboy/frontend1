@@ -30,6 +30,7 @@ export const TableUsuario = () => {
                         <th /*style={{ width: 80}}*/ scope="col">Genero</th>
                         <th /*style={{ width: 80}}*/ scope="col">Rol</th>
                         <th /*style={{ width: 80}}*/ scope="col">Cambiar Rol</th>
+                        <th /*style={{ width: 80}}*/ scope="col">Eliminar Usuario</th>
                     </tr>
                 </thead>
                 <tbody>
