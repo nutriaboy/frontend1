@@ -14,9 +14,20 @@ const warningAlert = {
     confirmButtonText: 'Si, Modificar Rol!'
 }
 
+const deleteAlert = {
+    title: 'Eliminar Usuario',
+    iconColor:'#FF0000',
+    text: "¿Desea eliminar este Usuario?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#dc3545',
+    cancelButtonColor: '#5C5B5B',
+    confirmButtonText: 'Si, Eliminar!'
+  }
+
 export const ItemTableUsuario = (...data) => {
     const [usuario] = data;
-    const { editarRolUsuario } = useContext(UsuarioContext);
+    const { editarRolUsuario, eliminarUsuario } = useContext(UsuarioContext);
     const { auth } = useContext(AuthContext);
     const { uid } = auth;
 
@@ -37,7 +48,19 @@ export const ItemTableUsuario = (...data) => {
 
     const deleteUser = (e) => {
         e.preventDefault();
-        console.log('eliminar');
+        Swal.fire(deleteAlert).then((result) => {
+            if (result.isConfirmed) {
+                
+                eliminarUsuario(usuario.uid)
+    
+              Swal.fire(
+                  'Eliminado!',
+                  'Se ha sido eliminado el registro.',
+                  'success'
+              )
+            }
+          })
+        
     }
 
     return (
@@ -63,7 +86,9 @@ export const ItemTableUsuario = (...data) => {
                             </button>
                         </td>
                         <td>
-                            <button className='btn btn-danger' onClick={deleteUser} >
+                            <button className='btn btn-danger' onClick={deleteUser} 
+                                disabled={ (usuario.rol === 'USER_ROLE') ? false : true} 
+                            >
                                 Borrar
                             </button>
                         </td>

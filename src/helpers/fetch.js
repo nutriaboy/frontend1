@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 
 //process.env.REACT_APP_API_URL 
-const baseUrl = 'http://localhost:8080/api';
+const baseUrl = 'https://backend1-production-d1de.up.railway.app/api';
 
 
 const fetchSinToken = async(endpoint, data, method = 'GET') => {

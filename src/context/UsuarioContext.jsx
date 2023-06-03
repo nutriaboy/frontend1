@@ -77,7 +77,12 @@ export const UsuarioProvider = ({ children }) => {
         const resp = await fetchConToken(`usuarios/${uid}`, {}, 'DELETE');
         console.log(resp);
         if (resp.ok) {
-            // const { }
+            const { usuario } = resp; 
+            dispatch({
+                type: types.eliminarUsuario,
+                payload: usuario
+            });
+            return true;
         }
 
 
@@ -175,6 +180,7 @@ export const UsuarioProvider = ({ children }) => {
             obtenerUsuarios,
             register,
             editarRolUsuario,
+            eliminarUsuario,
             obtenerProveedor,
             crearProveedor,
             actualizarProveedor,
