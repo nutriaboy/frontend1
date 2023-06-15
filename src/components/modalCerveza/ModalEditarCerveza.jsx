@@ -16,30 +16,31 @@ const warningAlert = {
     confirmButtonText: 'Si, Actualizar!'
   }
 
-export const ModalEditarDC = () => {
+export const ModalEditarCerveza = () => {
 
-    const { stateCerveza, closeModalEditarDC, actualizarDetalleCerveza } = useContext(CervezaContext);
-    const { modalEditarDC, tipoCerveza, selectDC } = stateCerveza;
+    const { stateCerveza, closeModalEditarCerveza, actualizarDetalleCerveza } = useContext(CervezaContext);
+    const { modalEditarCerveza, tipoCerveza, selectCerveza } = stateCerveza;
 
     const [idTipoCerveza, setIdTipoCerveza] = useState()
     const [dataDC, setDataDC] = useState({
         nombre: '',
         marca: '',
         idTipoC: '',
-        precioUnit: '0'
+        precioUnit: '0',
+        stock: '0',
     });
-    const { nombre, marca, precioUnit, id } = dataDC;
+    const { nombre, marca, precioUnit, stock, id } = dataDC;
 
 
     useEffect(() => {
         // ? Evaluar si el objeto viene vacio
-        if (Object.entries(selectDC).length !== 0) {
-            setDataDC(selectDC)
-            const {_id} = selectDC.tipoCerveza
+        if (Object.entries(selectCerveza).length !== 0) {
+            setDataDC(selectCerveza)
+            const {_id} = selectCerveza.tipoCerveza
             setIdTipoCerveza(_id);
             
         }
-    }, [selectDC])
+    }, [selectCerveza])
 
     const customStyles = {
         content: {
@@ -55,7 +56,7 @@ export const ModalEditarDC = () => {
 
     const modalClose = (e) => {
         e.preventDefault();
-        closeModalEditarDC();
+        closeModalEditarCerveza();
         setTimeout(() => {
             setIdTipoCerveza({})
         }, 200);
@@ -74,7 +75,7 @@ export const ModalEditarDC = () => {
         Swal.fire(warningAlert).then((result) => {
             if (result.isConfirmed) {
                 actualizarDetalleCerveza({ id, nombre, marca, precioUnit, idTipoCerveza });
-                closeModalEditarDC();
+                closeModalEditarCerveza();
     
               Swal.fire(
                   'Guardado!',
@@ -98,7 +99,7 @@ export const ModalEditarDC = () => {
     return (
         <>
             <Modal
-                isOpen={modalEditarDC}
+                isOpen={modalEditarCerveza}
                 // onAfterOpen={afterOpenModal}
                 onRequestClose={modalClose}
                 style={customStyles}
@@ -108,7 +109,7 @@ export const ModalEditarDC = () => {
             >
 
 
-                <h2 >Actualizar Detalle Cerveza</h2>
+                <h2 >Actualizar Cerveza</h2>
 
                 <hr />
                 <form
@@ -137,6 +138,20 @@ export const ModalEditarDC = () => {
                             onChange={handleInputChange}
                         />
                     </div>
+
+                    <div className='form-group'>
+                        <label>Stock</label>
+                        <input
+                            className='form-control'
+                            type='text'
+                            placeholder='Stock'
+                            name='stock'
+                            value={stock}
+                            onChange={handleInputChange}
+                            disabled
+                        />
+                    </div>
+
 
                     <label>Tipo de Cerveza</label>
                     <select
@@ -170,6 +185,7 @@ export const ModalEditarDC = () => {
                         </div>
                     </div>
 
+                   
 
                     <div className="d-grid gap-2">
 

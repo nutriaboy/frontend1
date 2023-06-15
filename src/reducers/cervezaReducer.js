@@ -7,13 +7,14 @@ export const cervezaReducer = (state, action) => {
         case types.obtenerCervezas:
             return {
                 ...state,
-                cervezas: action.payload
+                cervezas: action.payload,
+                isLoading: false
             }
 
-        case types.crearCerveza:
+        case types.crearCompra:
             return {
                 ...state,
-                cervezaCreada: action.payload
+                compraCreada: action.payload
             }
 
         case types.obtenerDetallesCervezas:
@@ -39,31 +40,31 @@ export const cervezaReducer = (state, action) => {
                 )
             }
 
-        case types.eliminarDetalleCerveza:
+        case types.eliminarCerveza:
             return {
                 ...state,
-                detallesCervezas: state.detallesCervezas.filter(
+                cervezas: state.cervezas.filter(
                     e => (e.id === action.payload.id)
                         ? false
                         : true
                 )
             }
 
-        case types.seleccionarDetalleCerveza:
+        case types.seleccionarCerveza:
             return {
                 ...state,
-                selectDC: action.payload,
+                selectCerveza: action.payload,
                 isOk: true
             }
-        case types.uiOpenModalEditarDC:
+        case types.uiOpenModalEditarCerveza:
             return{
                 ...state,
-                modalEditarDC: true
+                modalEditarCerveza: true
             }
-        case types.uiCloseModalEditarDC:
+        case types.uiCloseModalEditarCerveza:
             return{
                 ...state,
-                modalEditarDC: false
+                modalEditarCerveza: false
             }
 
         case types.obtenerProveedorByCerveza:

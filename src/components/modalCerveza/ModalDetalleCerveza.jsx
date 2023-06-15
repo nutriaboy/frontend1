@@ -8,15 +8,14 @@ import { ModalCantidad } from './ModalCantidad';
 export const ModalDetalleCerveza = () => {
 
     const { stateCerveza, closeModalDetalleCerveza, openModalCantidadCerveza, } = useContext(CervezaContext);
-    const { modalOpen2, tipoCerveza, cleanInputModal2 } = stateCerveza;
+    const { modalOpen2, cervezas, cleanInputModal2 } = stateCerveza;
     const [idTipoCerveza, setIdTipoCerveza] = useState({})
     const [dataDC, setDataDC] = useState({
-        nombre: '',
-        marca: '',
+        cantidad: '',
         idTipoC: '',
-        precioUnit: '0'
+        precio: '0'
     });
-    const { nombre, marca, idTipoC, precioUnit } = dataDC;
+    const { cantidad, idTipoC, precio } = dataDC;
 
     useEffect(() => {
         if (typeof (idTipoCerveza) === "string" && idTipoCerveza !== '1') {
@@ -32,16 +31,16 @@ export const ModalDetalleCerveza = () => {
         if (cleanInputModal2) {
             setIdTipoCerveza({});
             setDataDC({
-                nombre: '',
-                marca: '',
+                cantidad: '',
                 idTipoC: '',
-                precioUnit: '0'
+                precio: '0'
             })
         }
 
 
     }, [cleanInputModal2])
 
+    console.log(idTipoCerveza)
 
 
     const customStyles = {
@@ -62,7 +61,7 @@ export const ModalDetalleCerveza = () => {
         openModalCantidadCerveza();
 
 
-        console.log(nombre, marca, idTipoC, precioUnit);
+        console.log(cantidad, idTipoC, precio);
 
 
     }
@@ -95,49 +94,39 @@ export const ModalDetalleCerveza = () => {
 
     return (
         <>
-            <ModalCantidad data={dataDC}/>
+            <ModalCantidad data={dataDC} />
             <Modal
                 isOpen={modalOpen2}
                 // onAfterOpen={afterOpenModal}
                 onRequestClose={modalClose}
                 style={customStyles}
-                className="modal modal_5"
+                className="modal modal_6"
                 closeTimeoutMS={250}
                 overlayClassName="modal-fondo"
             >
 
 
-                <h2 >Agregar Detalle Cerveza</h2>
+                <h2 >Agregar Detalle Compra</h2>
 
                 <hr />
                 <form
                     className='container'
                 >
+
+
                     <div className='form-group'>
-                        <label>Nombre</label>
+                        <label>Cantidad</label>
                         <input
                             className='form-control'
                             type='text'
-                            placeholder='Nombre'
-                            name='nombre'
-                            value={nombre}
+                            placeholder='Cantidad'
+                            name='cantidad'
+                            value={cantidad}
                             onChange={handleInputChange}
                         />
                     </div>
 
-                    <div className='form-group'>
-                        <label>Marca</label>
-                        <input
-                            className='form-control'
-                            type='text'
-                            placeholder='Marca'
-                            name='marca'
-                            value={marca}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <label>Tipo de Cerveza</label>
+                    <label>Cerveza</label>
                     <select
                         className="form-select"
                         onChange={onChange}
@@ -146,8 +135,8 @@ export const ModalDetalleCerveza = () => {
                         <option value={1}  >Elegir Tipo de Cerveza...</option>
 
                         {
-                            tipoCerveza.map((tipoCerv) =>
-                                <option value={tipoCerv.id} key={tipoCerv.id}>{tipoCerv.nombre}</option>
+                            cervezas.map((Cerv) =>
+                                <option value={Cerv.id} key={Cerv.id}>{Cerv.nombre}</option>
 
                             )
                         }
@@ -162,8 +151,8 @@ export const ModalDetalleCerveza = () => {
                                 className='form-control'
                                 type='number'
                                 placeholder='Precio'
-                                name='precioUnit'
-                                value={precioUnit}
+                                name='precio'
+                                value={precio}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -172,7 +161,18 @@ export const ModalDetalleCerveza = () => {
 
                     <div className="d-grid gap-2">
 
-                        <button className='btn btn-outline-dark mt-3' disabled={!todoOk()} onClick={modalOpenCantidad}>
+
+
+                        <button className='btn btn-outline-primary mt-3'
+                            onClick={() => console.log('crear Cerveza')}
+                            style={(Object.entries(idTipoCerveza).length === 0 || idTipoCerveza === '1') ? null : { visibility: 'hidden' }}
+                        >
+                            Registrar Nueva Cerveza
+
+                        </button>
+
+
+                        <button className='btn btn-outline-dark ' disabled={!todoOk()} onClick={modalOpenCantidad}>
                             Siguiente
                         </button>
 

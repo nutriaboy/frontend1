@@ -12,7 +12,7 @@ export const Cervezas = () => {
     obtenerProveedorByCerveza(100);
     obtenerTipoCerveza(100);
     obtenerCervezas();
-    obtenerDetallesCervezas();
+    // obtenerDetallesCervezas();
   }, [])
 
   return (

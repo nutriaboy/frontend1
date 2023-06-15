@@ -3,14 +3,14 @@ import { CervezaContext } from '../context/CervezaContext'
 import { ItemTableCerveza } from './ItemTableCerveza';
 import { ModalCerveza } from './modalCerveza/ModalCerveza';
 import { ModalDetalleCerveza } from './modalCerveza/ModalDetalleCerveza';
-import { ModalCantidad } from './modalCerveza/ModalCantidad';
-import { ModalEditarDC } from './modalCerveza/ModalEditarDC';
+// import { ModalCantidad } from './modalCerveza/ModalCantidad';
+import { ModalEditarCerveza } from './modalCerveza/ModalEditarCerveza';
 
 
 
 export const TableCerveza = () => {
     const { stateCerveza, openModalCerveza } = useContext(CervezaContext);
-    const { detallesCervezas } = stateCerveza;
+    const { cervezas } = stateCerveza;
 
     const openModal = () => {
         openModalCerveza()
@@ -20,7 +20,7 @@ export const TableCerveza = () => {
         <div className="container-xxl">
             <ModalCerveza />
             <ModalDetalleCerveza />
-            <ModalEditarDC />
+            <ModalEditarCerveza />
             {/* <ModalCantidad /> */}
             <button
                 className='btn btn-info'
@@ -40,17 +40,18 @@ export const TableCerveza = () => {
                         <th /*style={{ width: 150}}*/ scope="col">Marca</th>
                         <th /*style={{ width: 80}}*/ scope="col">Tipo Cerveza</th>
                         <th /*style={{ width: 80}}*/ scope="col">Precio</th>
+                        <th /*style={{ width: 80}}*/ scope="col">Stock</th>
                         <th /*style={{ width: 80}}*/ scope="col">Editar</th>
                         <th /*style={{ width: 80}}*/ scope="col">Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        detallesCervezas.map((detalleCerveza, index) =>
+                        cervezas.map((cerveza, index) =>
                             <ItemTableCerveza
-                                key={detalleCerveza.id}
+                                key={cerveza.id}
                                 ids={index + 1}
-                                {...detalleCerveza}
+                                {...cerveza}
                             />
                         )
                     }

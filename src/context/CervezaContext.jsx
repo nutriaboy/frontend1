@@ -9,7 +9,7 @@ export const CervezaContext = createContext();
 const initialState = {
     isLoading: true,
     cervezas: [],
-    cervezaCreada: {},
+    compraCreada: {},
     detallesCervezas: [],
     creadoDetalleCerveza: {},
     proveedor: [],
@@ -17,8 +17,8 @@ const initialState = {
     modalOpen: false,
     modalOpen2: false,
     modalOpen3: false,
-    modalEditarDC: false,
-    selectDC: {},
+    modalEditarCerveza: false,
+    selectCerveza: {},
     isOk: false,
     cleanInputModal2: false,
 
@@ -54,12 +54,13 @@ export const CervezaProvider = ({ children }) => {
 
     }
 
-    const crearCerveza = async (proveedor) => {
-        const resp = await fetchConToken('cervezas', { proveedor }, 'POST');
+    const crearCompra = async (proveedor) => {
+        console.log(proveedor);
+        const resp = await fetchConToken('compras', { proveedor }, 'POST');
         if (resp.ok) {
             const { cerveza } = resp;
             dispatch({
-                type: types.crearCerveza,
+                type: types.crearCompra,
                 payload: cerveza
             })
         }
@@ -118,21 +119,21 @@ export const CervezaProvider = ({ children }) => {
         return [msg]
     }
 
-    const seleccionarDetalleCerveza = ({...data}) => {
+    const seleccionarCerveza = ({...data}) => {
         dispatch({
-            type: types.seleccionarDetalleCerveza,
+            type: types.seleccionarCerveza,
             payload: data
         })
     }
 
-    const eliminarDetalleCerveza = async (id) => {
+    const eliminarCerveza = async (id) => {
         console.log(id)
-        const resp = await fetchConToken(`detalleCervezas/${id}`, {}, 'DELETE');
+        const resp = await fetchConToken(`cervezas/${id}`, {}, 'DELETE');
         if (resp.ok){
-            const {detalleCervezaBorrada} = resp;
+            const {cervezaBorrada} = resp;
             dispatch({
-                type: types.eliminarDetalleCerveza,
-                payload: detalleCervezaBorrada
+                type: types.eliminarCerveza,
+                payload: cervezaBorrada
             });
         }
     }
@@ -188,11 +189,11 @@ export const CervezaProvider = ({ children }) => {
         })
     }
 
-    const openModalEditarDC = () => {
-        dispatch({type: types.uiOpenModalEditarDC})
+    const openModalEditarCerveza = () => {
+        dispatch({type: types.uiOpenModalEditarCerveza})
     }
-    const closeModalEditarDC = () => {
-        dispatch({type: types.uiCloseModalEditarDC})
+    const closeModalEditarCerveza = () => {
+        dispatch({type: types.uiCloseModalEditarCerveza})
     }
 
 
@@ -201,12 +202,12 @@ export const CervezaProvider = ({ children }) => {
             stateCerveza,
             obtenerProveedorByCerveza,
             obtenerCervezas,
-            crearCerveza,
+            crearCompra,
             obtenerDetallesCervezas,
             crearDetalleCervezas,
             actualizarDetalleCerveza,
-            eliminarDetalleCerveza,
-            seleccionarDetalleCerveza,
+            eliminarCerveza,
+            seleccionarCerveza,
             obtenerTipoCerveza,
             openModalCerveza,
             closeModalCerveza,
@@ -215,8 +216,8 @@ export const CervezaProvider = ({ children }) => {
             limpiarModalDetalleCerveza,
             openModalCantidadCerveza,
             closeModalCantidadCerveza,
-            openModalEditarDC,
-            closeModalEditarDC
+            openModalEditarCerveza,
+            closeModalEditarCerveza,
         }}>
             {children}
         </CervezaContext.Provider>

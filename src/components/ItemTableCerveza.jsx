@@ -4,9 +4,9 @@ import Swal from "sweetalert2";
 
 
 const deleteAlert = {
-    title: 'Eliminar Detalle Cerveza',
+    title: 'Eliminar Cerveza',
     iconColor:'#FF0000',
-    text: "¿Desea eliminar este Detalle Cerveza?",
+    text: "¿Desea eliminar esta Cerveza?",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#dc3545',
@@ -16,21 +16,22 @@ const deleteAlert = {
 
 export const ItemTableCerveza = (...data) => {
     const [cerveza] = data;
-    const {actualizarDetalleCerveza, eliminarDetalleCerveza, seleccionarDetalleCerveza, openModalEditarDC} = useContext(CervezaContext);
+    const { eliminarCerveza, seleccionarCerveza, openModalEditarCerveza} = useContext(CervezaContext);
 
     const editarCerveza = (e) => {
         e.preventDefault();
-        seleccionarDetalleCerveza(cerveza);
-        openModalEditarDC();
+        seleccionarCerveza(cerveza);
+        openModalEditarCerveza();
 
     }
 
-    const eliminarCerveza = (e) => {
+    const eliminarCervezaById = (e) => {
+      // console.log(cerveza);
         e.preventDefault();
         Swal.fire(deleteAlert).then((result) => {
             if (result.isConfirmed) {
                 
-                eliminarDetalleCerveza(cerveza.id)
+              eliminarCerveza(cerveza.id)
     
               Swal.fire(
                   'Eliminado!',
@@ -48,11 +49,12 @@ export const ItemTableCerveza = (...data) => {
             <td>{cerveza.marca}</td>
             <td>{cerveza.tipoCerveza.nombre}</td>
             <td>{cerveza.precioUnit}</td>
+            <td>{cerveza.stock}</td>
             <td>
                 <button className='btn btn-info' onClick={editarCerveza}>Editar</button>
             </td>
             <td>
-                <button className='btn btn-danger' onClick={eliminarCerveza}>Borrar</button>
+                <button className='btn btn-danger' onClick={eliminarCervezaById}>Borrar</button>
             </td>
             
         </tr>
