@@ -55,7 +55,6 @@ export const CervezaProvider = ({ children }) => {
     }
 
     const crearCompra = async (proveedor) => {
-        console.log(proveedor);
         const resp = await fetchConToken('compras', { proveedor }, 'POST');
         if (resp.ok) {
             const { cerveza } = resp;
@@ -94,20 +93,20 @@ export const CervezaProvider = ({ children }) => {
         obtenerDetallesCervezas();
     }
 
-    const actualizarDetalleCerveza = async (...rest) => {
+    const actualizarCerveza = async (...rest) => {
         const [data] = rest;
-        let { id, nombre, marca, precioUnit, idTipoCerveza: tipoCerveza} = data;
+        let {id, nombre, marca,precioUnit, idTipoCerveza : tipoCerveza} = data;
         if (typeof(precioUnit) === "string" ) precioUnit = parseInt(precioUnit);
         precioUnit = precioUnit;
         
-        const resp = await fetchConToken(`detalleCervezas/${id}`, { nombre, marca, tipoCerveza, precioUnit }, 'PUT');
+        const resp = await fetchConToken(`cervezas/${id}`, { nombre, marca, tipoCerveza, precioUnit }, 'PUT');
         
         console.log(resp);
         if (resp.ok) {
-            const { detalleCerveza } = resp;
+            const { cerveza } = resp;
             dispatch({
-                type: types.actualizarDetalleCerveza,
-                payload: detalleCerveza
+                type: types.actualizarCerveza,
+                payload: cerveza
             });
             return true;
         }
@@ -205,7 +204,7 @@ export const CervezaProvider = ({ children }) => {
             crearCompra,
             obtenerDetallesCervezas,
             crearDetalleCervezas,
-            actualizarDetalleCerveza,
+            actualizarCerveza,
             eliminarCerveza,
             seleccionarCerveza,
             obtenerTipoCerveza,

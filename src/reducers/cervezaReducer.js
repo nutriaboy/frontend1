@@ -30,10 +30,10 @@ export const cervezaReducer = (state, action) => {
                 creadoDetalleCerveza: action.payload
             }
 
-        case types.actualizarDetalleCerveza:
+        case types.actualizarCerveza:
             return {
                 ...state,
-                detallesCervezas: state.detallesCervezas.map(
+                cervezas: state.cervezas.map(
                     e => ( e.id === action.payload.id)
                                 ? action.payload
                                 : e

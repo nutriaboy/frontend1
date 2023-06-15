@@ -17,6 +17,8 @@ export const ModalDetalleCerveza = () => {
     });
     const { cantidad, idTipoC, precio } = dataDC;
 
+
+
     useEffect(() => {
         if (typeof (idTipoCerveza) === "string" && idTipoCerveza !== '1') {
             setDataDC({
@@ -40,7 +42,6 @@ export const ModalDetalleCerveza = () => {
 
     }, [cleanInputModal2])
 
-    console.log(idTipoCerveza)
 
 
     const customStyles = {
@@ -59,11 +60,6 @@ export const ModalDetalleCerveza = () => {
         e.preventDefault();
         closeModalDetalleCerveza();
         openModalCantidadCerveza();
-
-
-        console.log(cantidad, idTipoC, precio);
-
-
     }
 
     const modalClose = (e) => {
@@ -86,6 +82,16 @@ export const ModalDetalleCerveza = () => {
         setIdTipoCerveza(
             e.target.value
         )
+    }
+
+    const dataStock = () => {
+        const cervezaSeleccionada = cervezas.filter((cerveza) => {
+            if (idTipoCerveza === cerveza.id) {
+                return true;
+            }
+        })
+
+        return cervezaSeleccionada[0].stock
     }
 
     const todoOk = () => {
@@ -118,7 +124,7 @@ export const ModalDetalleCerveza = () => {
                         <label>Cantidad</label>
                         <input
                             className='form-control'
-                            type='text'
+                            type='number'
                             placeholder='Cantidad'
                             name='cantidad'
                             value={cantidad}
@@ -132,11 +138,11 @@ export const ModalDetalleCerveza = () => {
                         onChange={onChange}
                         value={idTipoCerveza}
                     >
-                        <option value={1}  >Elegir Tipo de Cerveza...</option>
+                        <option value={1}  >Elegir Cerveza...</option>
 
                         {
                             cervezas.map((Cerv) =>
-                                <option value={Cerv.id} key={Cerv.id}>{Cerv.nombre}</option>
+                                <option value={Cerv.id} key={Cerv.id}>{Cerv.nombre} - {Cerv.marca}</option>
 
                             )
                         }
@@ -162,17 +168,32 @@ export const ModalDetalleCerveza = () => {
                     <div className="d-grid gap-2">
 
 
+                        {
+                            (Object.entries(idTipoCerveza).length === 0 || idTipoCerveza === '1')
+                                ? (
+                                    <button className='btn btn-outline-primary mt-3'
+                                        onClick={modalOpenCantidad}
+                                    >
+                                        Registrar Nueva Cerveza
 
-                        <button className='btn btn-outline-primary mt-3'
-                            onClick={() => console.log('crear Cerveza')}
-                            style={(Object.entries(idTipoCerveza).length === 0 || idTipoCerveza === '1') ? null : { visibility: 'hidden' }}
-                        >
-                            Registrar Nueva Cerveza
+                                    </button>
+                                )
+                                : (
+                                    <button className='btn mt-3'
+                                        disabled
+                                        onClick={() => console.log('crear Cerveza')}
+                                    >
+                                        Stock Actual: {dataStock()} 
 
-                        </button>
+                                    </button>
+                            )
+
+                        }
 
 
-                        <button className='btn btn-outline-dark ' disabled={!todoOk()} onClick={modalOpenCantidad}>
+
+
+                        <button className='btn btn-outline-dark ' disabled={!todoOk()} onClick={() => (console.log('crear detalle compra') ,preventDefault())}>
                             Siguiente
                         </button>
 

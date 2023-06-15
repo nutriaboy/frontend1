@@ -18,7 +18,7 @@ const warningAlert = {
 
 export const ModalEditarCerveza = () => {
 
-    const { stateCerveza, closeModalEditarCerveza, actualizarDetalleCerveza } = useContext(CervezaContext);
+    const { stateCerveza, closeModalEditarCerveza, actualizarCerveza } = useContext(CervezaContext);
     const { modalEditarCerveza, tipoCerveza, selectCerveza } = stateCerveza;
 
     const [idTipoCerveza, setIdTipoCerveza] = useState()
@@ -74,7 +74,7 @@ export const ModalEditarCerveza = () => {
         e.preventDefault();
         Swal.fire(warningAlert).then((result) => {
             if (result.isConfirmed) {
-                actualizarDetalleCerveza({ id, nombre, marca, precioUnit, idTipoCerveza });
+                actualizarCerveza({ id, nombre, marca, precioUnit, idTipoCerveza });
                 closeModalEditarCerveza();
     
               Swal.fire(

@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { CervezaContext } from '../context/CervezaContext'
 import { ItemTableCerveza } from './ItemTableCerveza';
 import { ModalCerveza } from './modalCerveza/ModalCerveza';
-import { ModalDetalleCerveza } from './modalCerveza/ModalDetalleCerveza';
+import { ModalDetalleCerveza } from './modalCerveza/ModalDetalleCompra';
 // import { ModalCantidad } from './modalCerveza/ModalCantidad';
 import { ModalEditarCerveza } from './modalCerveza/ModalEditarCerveza';
 

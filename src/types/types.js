@@ -26,10 +26,10 @@ export const types = {
     obtenerProveedorByCerveza: '[Cerveza] Obtener Proveedores para usar en Cerveza',
     seleccionarCerveza: '[Cerveza] Se selecciona una Cerveza par su edicion',
     eliminarCerveza: '[Cerveza] Se elimina una Cerveza',
+    actualizarCerveza: '[Cerveza] Se actualiza una Cerveza',
     
     obtenerDetallesCervezas: '[DetallesCervezas] Se obtiene los datos de Detalles de Cervezas',
     crearDetalleCerveza: '[DetalleCerveza] Se crea Detalle de Cerveza',
-    actualizarDetalleCerveza: '[DetalleCerveza] Se actualiza un Detalle Cerveza',
     
     obtenerTipoCerveza: '[TipoCerveza] se obtiene los datos de Tipo de Cerveza',
 
