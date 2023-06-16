@@ -10,7 +10,7 @@ const initialState = {
     isLoading: true,
     cervezas: [],
     compraCreada: {},
-    detallesCervezas: [],
+    detallesCompras: [],
     creadoDetalleCerveza: {},
     proveedor: [],
     tiposCervezas: [],
@@ -19,6 +19,7 @@ const initialState = {
     modalOpen3: false,
     modalEditarCerveza: false,
     selectCerveza: {},
+    selectCreateCerveza: {},
     isOk: false,
     cleanInputModal2: false,
 
@@ -57,26 +58,29 @@ export const CervezaProvider = ({ children }) => {
     const crearCompra = async (proveedor) => {
         const resp = await fetchConToken('compras', { proveedor }, 'POST');
         if (resp.ok) {
-            const { cerveza } = resp;
+            const { compra } = resp;
             dispatch({
                 type: types.crearCompra,
-                payload: cerveza
+                payload: compra
             })
         }
     }
 
-    const obtenerDetallesCervezas = async () => {
-        //TODO: Solo temporal hasta que haya paginación
-        const resp = await fetchConToken('detalleCervezas?limite=100');
+    const crearDetalleCompra = async (...rest) => {
+        const data =  rest[0];
+        let { cantidad, compraId: compra, idCerveza: cerveza, precio} = data;
+        cantidad = parseInt(cantidad);
+        const resp = await fetchConToken(`detalleCompras`, { compra, cerveza, cantidad, precio }, 'POST');
         if (resp.ok) {
-            const { detallesCervezas } = resp;
+            const { detalleCompra } = resp;
             dispatch({
-                type: types.obtenerDetallesCervezas,
-                payload: detallesCervezas
-            });
-            return true;
+                type: types.crearDetalleCompra,
+                payload: detalleCompra
+            })
+            obtenerCervezas();
         }
     }
+
 
     const crearCervezas = async (...rest) => {
         const [data] = rest;
@@ -200,7 +204,7 @@ export const CervezaProvider = ({ children }) => {
             obtenerProveedorByCerveza,
             obtenerCervezas,
             crearCompra,
-            obtenerDetallesCervezas,
+            crearDetalleCompra,
             crearCervezas,
             actualizarCerveza,
             eliminarCerveza,

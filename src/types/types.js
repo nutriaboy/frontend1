@@ -29,9 +29,10 @@ export const types = {
     actualizarCerveza: '[Cerveza] Se actualiza una Cerveza',
     crearCerveza: '[Cerveza] Se crea Cerveza',
     
-    obtenerDetallesCervezas: '[DetallesCervezas] Se obtiene los datos de Detalles de Cervezas',
     
     obtenerTiposCervezas: '[TipoCerveza] se obtiene los datos de Tipo de Cerveza',
 
     crearCompra: '[Compra] Se crea la Compra',
+
+    crearDetalleCompra: '[DetalleCompra] Se crea la Detalle de la Compra',
 }

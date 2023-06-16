@@ -7,9 +7,9 @@ import { ModalCantidad } from './ModalCantidad';
 
 export const ModalDetalleCerveza = () => {
 
-    const { stateCerveza, closeModalDetalleCerveza, openModalCantidadCerveza, } = useContext(CervezaContext);
-    const { modalOpen2, cervezas, cleanInputModal2 } = stateCerveza;
-    const [idTipoCerveza, setIdTipoCerveza] = useState({})
+    const { stateCerveza, closeModalDetalleCerveza, openModalCantidadCerveza, crearDetalleCompra } = useContext(CervezaContext);
+    const { modalOpen2, cervezas, cleanInputModal2, compraCreada, selectCreateCerveza } = stateCerveza;
+    const [idCerveza, setIdCerveza] = useState({})
     const [dataDC, setDataDC] = useState({
         cantidad: '',
         idTipoC: '',
@@ -17,21 +17,25 @@ export const ModalDetalleCerveza = () => {
     });
     const { cantidad, idTipoC, precio } = dataDC;
 
+    useEffect(() => {
+        if(Object.entries(selectCreateCerveza).length !== 0){
+            setIdCerveza(selectCreateCerveza.id)
+        }
+    }, [selectCreateCerveza]);
 
 
     useEffect(() => {
-        if (typeof (idTipoCerveza) === "string" && idTipoCerveza !== '1') {
+        if (typeof (idCerveza) === "string" && idCerveza !== '1') {
             setDataDC({
                 ...dataDC,
-                idTipoC: idTipoCerveza
+                idTipoC: idCerveza
             });
         }
-    }, [idTipoCerveza])
+    }, [idCerveza])
 
     useEffect(() => {
-
         if (cleanInputModal2) {
-            setIdTipoCerveza({});
+            setIdCerveza({});
             setDataDC({
                 cantidad: '',
                 idTipoC: '',
@@ -56,7 +60,7 @@ export const ModalDetalleCerveza = () => {
     };
     Modal.setAppElement('#root');
 
-    const modalOpenCantidad = (e) => {
+    const modalOpenCreateCerveza = (e) => {
         e.preventDefault();
         closeModalDetalleCerveza();
         openModalCantidadCerveza();
@@ -66,7 +70,7 @@ export const ModalDetalleCerveza = () => {
         e.preventDefault();
         closeModalDetalleCerveza();
         setTimeout(() => {
-            setIdTipoCerveza({})
+            setIdCerveza({})
         }, 200);
 
     }
@@ -79,23 +83,33 @@ export const ModalDetalleCerveza = () => {
     }
 
     const onChange = (e) => {
-        setIdTipoCerveza(
+        setIdCerveza(
             e.target.value
         )
     }
 
-    const dataStock = () => {
-        const cervezaSeleccionada = cervezas.filter((cerveza) => {
-            if (idTipoCerveza === cerveza.id) {
-                return true;
-            }
-        })
+    const createDetalleCerveza = (e) => {
+        e.preventDefault();
+        const compraId = compraCreada.id;
+        crearDetalleCompra({idCerveza, cantidad,precio, compraId});
+        closeModalDetalleCerveza();
 
-        return cervezaSeleccionada[0].stock
+    }
+
+    const dataStock = () => {
+        const cervezaSeleccionada = cervezas.find((cerveza) => idCerveza === cerveza.id);
+        if (cervezaSeleccionada) {
+            return cervezaSeleccionada.stock;
+
+        }
+        return 0;
     }
 
     const todoOk = () => {
-        return ((typeof (idTipoCerveza) === "string" && idTipoCerveza !== '1') ? true : false)
+        return ((typeof (idCerveza) === "string" 
+            && idCerveza !== '1'
+            && cantidad > 0
+            && precio > 0) ? true : false)
     }
 
     return (
@@ -136,7 +150,7 @@ export const ModalDetalleCerveza = () => {
                     <select
                         className="form-select"
                         onChange={onChange}
-                        value={idTipoCerveza}
+                        value={idCerveza}
                     >
                         <option value={1}  >Elegir Cerveza...</option>
 
@@ -169,10 +183,10 @@ export const ModalDetalleCerveza = () => {
 
 
                         {
-                            (Object.entries(idTipoCerveza).length === 0 || idTipoCerveza === '1')
+                            (Object.entries(idCerveza).length === 0 || idCerveza === '1')
                                 ? (
                                     <button className='btn btn-outline-primary mt-3'
-                                        onClick={modalOpenCantidad}
+                                        onClick={modalOpenCreateCerveza}
                                     >
                                         Registrar Nueva Cerveza
 
@@ -193,8 +207,8 @@ export const ModalDetalleCerveza = () => {
 
 
 
-                        <button className='btn btn-outline-dark ' disabled={!todoOk()} onClick={() => (console.log('crear detalle compra') ,preventDefault())}>
-                            Siguiente
+                        <button className='btn btn-outline-dark ' disabled={!todoOk()} onClick={createDetalleCerveza}>
+                            Crear Compra
                         </button>
 
 

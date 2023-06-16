@@ -32,29 +32,24 @@ export const ModalCantidad = ({ data }) => {
     const modalClose = (e) => {
         e.preventDefault();
         closeModalCantidadCerveza();
+        setCreateDataCerveza({
+            nombre: '',
+            marca: '',
+            precioUnit: '',
+        });
     }
 
-    // const crearDetalleCerveza = (e) => {
-    //     e.preventDefault();
-    //     closeModalCantidadCerveza();
-    //     data.cerveza = cervezaCreada.id;
-    //     // !Funcion para insertar varios elementos al backend
-    //     crearDetallesCer(cantidad, data);
-    // }
-
-    // const crearCer = (numRepeticion, ...rest) => {
-    //     const [dataDetalleCerveza] = rest;
-    //     console.log(numRepeticion);
-    //     for (let i = 0; i < numRepeticion; i++) {
-    //         crearCervezas(dataDetalleCerveza)
-    //     }
-
-    // }
     const crearCerveza = (e) => {
         e.preventDefault();
-        // console.log({nombre, marca, precioUnit, stock, idTipoCerveza})
         crearCervezas({ nombre, marca, precioUnit, idTipoCerveza })
+        openModalDetalleCerveza();
         closeModalCantidadCerveza();
+        setCreateDataCerveza({
+            nombre: '',
+            marca: '',
+            precioUnit: '',
+        });
+
     }
 
 

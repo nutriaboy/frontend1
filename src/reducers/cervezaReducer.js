@@ -17,26 +17,28 @@ export const cervezaReducer = (state, action) => {
                 compraCreada: action.payload
             }
 
-        case types.obtenerDetallesCervezas:
+        case types.crearDetalleCompra:
             return {
                 ...state,
-                detallesCervezas: action.payload,
-                isLoading: false
+                detallesCompras: action.payload
             }
+
+
 
         case types.crearCerveza:
             return {
                 ...state,
-                cervezas: [...state.cervezas, action.payload]
+                cervezas: [...state.cervezas, action.payload],
+                selectCreateCerveza: action.payload
             }
 
         case types.actualizarCerveza:
             return {
                 ...state,
                 cervezas: state.cervezas.map(
-                    e => ( e.id === action.payload.id)
-                                ? action.payload
-                                : e
+                    e => (e.id === action.payload.id)
+                        ? action.payload
+                        : e
                 )
             }
 
@@ -57,12 +59,12 @@ export const cervezaReducer = (state, action) => {
                 isOk: true
             }
         case types.uiOpenModalEditarCerveza:
-            return{
+            return {
                 ...state,
                 modalEditarCerveza: true
             }
         case types.uiCloseModalEditarCerveza:
-            return{
+            return {
                 ...state,
                 modalEditarCerveza: false
             }
