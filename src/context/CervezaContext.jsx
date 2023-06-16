@@ -13,7 +13,7 @@ const initialState = {
     detallesCervezas: [],
     creadoDetalleCerveza: {},
     proveedor: [],
-    tipoCerveza: [],
+    tiposCervezas: [],
     modalOpen: false,
     modalOpen2: false,
     modalOpen3: false,
@@ -42,7 +42,7 @@ export const CervezaProvider = ({ children }) => {
     }
 
     const obtenerCervezas = async () => {
-        const resp = await fetchConToken('cervezas');
+        const resp = await fetchConToken('cervezas?limite=100');
         if (resp.ok) {
             const { cervezas } = resp;
             dispatch({
@@ -78,19 +78,19 @@ export const CervezaProvider = ({ children }) => {
         }
     }
 
-    const crearDetalleCervezas = async (...rest) => {
+    const crearCervezas = async (...rest) => {
         const [data] = rest;
-        const { cerveza, idTipoC: tipoCerveza, marca, nombre, precioUnit } = data;
+        const {nombre, marca, precioUnit, stock, idTipoCerveza: tipoCerveza} = data;
 
-        const resp = await fetchConToken('detalleCervezas', { cerveza, tipoCerveza, marca, nombre, precioUnit }, 'POST');
+        const resp = await fetchConToken('cervezas', { nombre, marca, precioUnit, stock, tipoCerveza }, 'POST');
         if (resp.ok) {
-            const { detalleCerveza } = resp;
+            const { cerveza } = resp;
             dispatch({
-                type: types.crearDetalleCerveza,
-                payload: detalleCerveza
+                type: types.crearCerveza,
+                payload: cerveza
             })
         }
-        obtenerDetallesCervezas();
+        
     }
 
     const actualizarCerveza = async (...rest) => {
@@ -101,7 +101,6 @@ export const CervezaProvider = ({ children }) => {
         
         const resp = await fetchConToken(`cervezas/${id}`, { nombre, marca, tipoCerveza, precioUnit }, 'PUT');
         
-        console.log(resp);
         if (resp.ok) {
             const { cerveza } = resp;
             dispatch({
@@ -126,7 +125,6 @@ export const CervezaProvider = ({ children }) => {
     }
 
     const eliminarCerveza = async (id) => {
-        console.log(id)
         const resp = await fetchConToken(`cervezas/${id}`, {}, 'DELETE');
         if (resp.ok){
             const {cervezaBorrada} = resp;
@@ -138,12 +136,12 @@ export const CervezaProvider = ({ children }) => {
     }
 
 
-    const obtenerTipoCerveza = async (limite = 5) => {
+    const obtenerTiposCervezas = async (limite = 5) => {
         const resp = await fetchConToken(`tipoCervezas?limite=${limite}`);
         if (resp.ok) {
             const { tipoCervezas } = resp;
             dispatch({
-                type: types.obtenerTipoCerveza,
+                type: types.obtenerTiposCervezas,
                 payload: tipoCervezas
             });
         }
@@ -203,11 +201,11 @@ export const CervezaProvider = ({ children }) => {
             obtenerCervezas,
             crearCompra,
             obtenerDetallesCervezas,
-            crearDetalleCervezas,
+            crearCervezas,
             actualizarCerveza,
             eliminarCerveza,
             seleccionarCerveza,
-            obtenerTipoCerveza,
+            obtenerTiposCervezas,
             openModalCerveza,
             closeModalCerveza,
             openModalDetalleCerveza,

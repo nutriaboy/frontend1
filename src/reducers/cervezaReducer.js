@@ -24,10 +24,10 @@ export const cervezaReducer = (state, action) => {
                 isLoading: false
             }
 
-        case types.crearDetalleCerveza:
+        case types.crearCerveza:
             return {
                 ...state,
-                creadoDetalleCerveza: action.payload
+                cervezas: [...state.cervezas, action.payload]
             }
 
         case types.actualizarCerveza:
@@ -73,10 +73,10 @@ export const cervezaReducer = (state, action) => {
                 proveedor: action.payload
             }
 
-        case types.obtenerTipoCerveza:
+        case types.obtenerTiposCervezas:
             return {
                 ...state,
-                tipoCerveza: action.payload
+                tiposCervezas: action.payload
             }
 
         case types.uiOpenModalCerveza:

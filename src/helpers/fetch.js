@@ -1,7 +1,6 @@
 import Swal from "sweetalert2";
 
 // let urlProcess = env.USER || '';
-// console.log(); 
 const baseUrl = import.meta.env.VITE_APP_API_URL;
 
 

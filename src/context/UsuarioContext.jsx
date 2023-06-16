@@ -70,12 +70,10 @@ export const UsuarioProvider = ({ children }) => {
             });
             return true;
         }
-        console.log(resp);
     }
 
     const eliminarUsuario = async (uid) => {
         const resp = await fetchConToken(`usuarios/${uid}`, {}, 'DELETE');
-        console.log(resp);
         if (resp.ok) {
             const { usuario } = resp; 
             dispatch({
@@ -123,7 +121,6 @@ export const UsuarioProvider = ({ children }) => {
         const { nombre, correo, rut, telefono, direccion, uid } = dataProveedor;
         // console.log(dataProveedor)
         const resp = await fetchConToken(`proveedores/${uid}`, { nombre, correo, telefono, direccion }, 'PUT');
-        console.log(resp);
         if (resp.ok) {
             const { proveedor } = resp;
             dispatch({
@@ -143,7 +140,6 @@ export const UsuarioProvider = ({ children }) => {
     const eliminarProveedor = async (uid) => {
         const resp = await fetchConToken(`proveedores/${uid}`, {}, 'DELETE');
 
-        console.log(resp);
         if (resp.ok) {
             const { proveedorBorrado } = resp
             dispatch({

@@ -15,8 +15,24 @@ const deleteAlert = {
   }
 
 export const ItemTableCerveza = (...data) => {
-    const [cerveza] = data;
-    const { eliminarCerveza, seleccionarCerveza, openModalEditarCerveza} = useContext(CervezaContext);
+    let [cerveza] = data;
+    const { eliminarCerveza, seleccionarCerveza, openModalEditarCerveza, stateCerveza} = useContext(CervezaContext);
+    const {tiposCervezas} = stateCerveza;
+
+    
+    
+    const handleGetTipoCerveza = () => {
+      // console.log(tiposCervezas)
+
+      let nombreTC = cerveza.tipoCerveza.nombre || '';
+      let valorTC = ''
+      if (cerveza.tipoCerveza.nombre === undefined)
+      {
+        valorTC =  tiposCervezas.find((itemTC) => itemTC.id === cerveza.tipoCerveza);
+        return nombreTC = valorTC.nombre;
+      }
+      return nombreTC;
+    }
 
     const editarCerveza = (e) => {
         e.preventDefault();
@@ -47,7 +63,7 @@ export const ItemTableCerveza = (...data) => {
             <td>{cerveza.ids}</td>
             <td>{cerveza.nombre}</td>
             <td>{cerveza.marca}</td>
-            <td>{cerveza.tipoCerveza.nombre}</td>
+            <td>{(handleGetTipoCerveza())}</td>
             <td>{cerveza.precioUnit}</td>
             <td>{cerveza.stock}</td>
             <td>

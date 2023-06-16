@@ -19,7 +19,7 @@ const warningAlert = {
 export const ModalEditarCerveza = () => {
 
     const { stateCerveza, closeModalEditarCerveza, actualizarCerveza } = useContext(CervezaContext);
-    const { modalEditarCerveza, tipoCerveza, selectCerveza } = stateCerveza;
+    const { modalEditarCerveza, tiposCervezas, selectCerveza } = stateCerveza;
 
     const [idTipoCerveza, setIdTipoCerveza] = useState()
     const [dataDC, setDataDC] = useState({
@@ -34,6 +34,7 @@ export const ModalEditarCerveza = () => {
 
     useEffect(() => {
         // ? Evaluar si el objeto viene vacio
+        // TODO: ver si hay error
         if (Object.entries(selectCerveza).length !== 0) {
             setDataDC(selectCerveza)
             const {_id} = selectCerveza.tipoCerveza
@@ -162,7 +163,7 @@ export const ModalEditarCerveza = () => {
                         <option value={1}  >Elegir Tipo de Cerveza...</option>
 
                         {
-                            tipoCerveza.map((tipoCerv) =>
+                            tiposCervezas.map((tipoCerv) =>
                                 <option value={tipoCerv.id} key={tipoCerv.id}>{tipoCerv.nombre}</option>
 
                             )
