@@ -14,9 +14,8 @@ export const ModalCantidad = ({ data }) => {
         nombre: '',
         marca: '',
         precioUnit: '',
-        stock: '1',
     });
-    const { nombre, marca, precioUnit, stock } = createDataCerveza;
+    const { nombre, marca, precioUnit } = createDataCerveza;
 
     const customStyles = {
         content: {
@@ -54,7 +53,7 @@ export const ModalCantidad = ({ data }) => {
     const crearCerveza = (e) => {
         e.preventDefault();
         // console.log({nombre, marca, precioUnit, stock, idTipoCerveza})
-        crearCervezas({ nombre, marca, precioUnit, stock, idTipoCerveza })
+        crearCervezas({ nombre, marca, precioUnit, idTipoCerveza })
         closeModalCantidadCerveza();
     }
 
@@ -83,7 +82,7 @@ export const ModalCantidad = ({ data }) => {
             && nombre.length > 0
             && marca.length > 0
             && precioUnit > 0
-            && stock > 0) ? true : false)
+            ) ? true : false)
     }
 
     return (
@@ -92,7 +91,7 @@ export const ModalCantidad = ({ data }) => {
             // onAfterOpen={afterOpenModal}
             onRequestClose={modalClose}
             style={customStyles}
-            className="modal modal_7"
+            className="modal modal_5"
             closeTimeoutMS={300}
             overlayClassName="modal-fondo"
         >
@@ -146,7 +145,7 @@ export const ModalCantidad = ({ data }) => {
                 </select>
 
 
-                <div className='form-group'>
+                {/* <div className='form-group'>
                     <label>Stock</label>
                     <input
                         className='form-control'
@@ -156,7 +155,7 @@ export const ModalCantidad = ({ data }) => {
                         value={stock}
                         onChange={handleInputChange}
                     />
-                </div>
+                </div> */}
 
                 <div className='form-group'>
                     <label>Precio</label>
